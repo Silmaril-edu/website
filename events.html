@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SILMARIL | Events</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@300;400;600;700&family=Barlow:wght@300;400;500;600&family=Space+Mono&display=swap');
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --bg:#f5fcfb;--navy:#eaf7f4;--cyan:#1d9fbd;--white:#143341;--muted:#496772;
+  --card:rgba(255,255,255,.93);--bd:rgba(62,186,162,.24);--bd2:rgba(116,214,90,.4);
+}
+body{background:var(--bg);color:var(--white);font-family:'Barlow',sans-serif;line-height:1.65;}
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:center;justify-content:space-between;padding:0 2rem;height:60px;background:rgba(246,255,253,.92);backdrop-filter:blur(14px);border-bottom:1px solid var(--bd);}
+.logo{display:inline-flex;align-items:center;text-decoration:none;}
+.site-mark{height:34px;width:34px;object-fit:cover;object-position:center;border-radius:9px;padding:2px;background:#d9dcde;border:1px solid rgba(255,255,255,.45);}
+.nav-links{display:flex;gap:1.5rem;list-style:none;}
+.nav-links a{color:var(--muted);text-decoration:none;font-family:'Chakra Petch',monospace;font-size:.75rem;letter-spacing:.09em;text-transform:uppercase;}
+.nav-links a:hover{color:var(--cyan);}
+.nav-btn{background:transparent;border:1px solid var(--bd2);color:var(--cyan);padding:.38rem 1rem;font-family:'Chakra Petch',monospace;font-size:.74rem;letter-spacing:.08em;text-transform:uppercase;border-radius:2px;text-decoration:none;}
+main{padding:96px 2rem 4rem;}
+.hero{max-width:1100px;margin:0 auto 2.4rem;padding:1.6rem 1.5rem;border:1px solid var(--bd);border-radius:10px;background:linear-gradient(135deg,rgba(29,159,189,.12),rgba(116,214,90,.12));}
+.eyebrow{font-family:'Space Mono',monospace;font-size:.65rem;letter-spacing:.16em;text-transform:uppercase;color:var(--cyan);margin-bottom:.6rem;}
+h1{font-family:'Chakra Petch',monospace;font-size:clamp(1.8rem,3.2vw,2.6rem);line-height:1.12;margin-bottom:.5rem;}
+.hero p{max-width:720px;color:var(--muted);}
+.grid{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1.1rem;}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:8px;padding:1.2rem;box-shadow:0 10px 24px rgba(16,92,93,.08);}
+.meta{font-family:'Space Mono',monospace;font-size:.62rem;letter-spacing:.08em;text-transform:uppercase;color:#3f6d8d;margin-bottom:.45rem;}
+.title{font-family:'Chakra Petch',monospace;font-weight:700;font-size:1rem;line-height:1.3;margin-bottom:.45rem;}
+.copy{font-size:.86rem;color:var(--muted);}
+.link{display:inline-flex;margin-top:.8rem;font-family:'Space Mono',monospace;font-size:.66rem;letter-spacing:.06em;text-transform:uppercase;color:var(--cyan);text-decoration:none;}
+.link:hover{text-decoration:underline;}
+footer{max-width:1100px;margin:2.4rem auto 0;padding-top:1.2rem;border-top:1px solid var(--bd);font-family:'Space Mono',monospace;font-size:.62rem;color:rgba(20,52,65,.55);}
+@media(max-width:960px){.nav-links{display:none;}.grid{grid-template-columns:1fr 1fr;}}
+@media(max-width:640px){nav{padding:0 1rem;}main{padding:88px 1rem 3rem;}.grid{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<nav>
+  <a class="logo" href="index.html" aria-label="SILMARIL home"><img class="site-mark" src="assets/img/logos/silmaril-mark.png" alt="SILMARIL symbol" /></a>
+  <ul class="nav-links">
+    <li><a href="index.html#about">About</a></li>
+    <li><a href="tools.html">Tools</a></li>
+    <li><a href="events.html">Events</a></li>
+    <li><a href="news.html">News</a></li>
+    <li><a href="index.html#careers">Careers</a></li>
+    <li><a href="index.html#opportunities">Opportunities</a></li>
+  </ul>
+  <a class="nav-btn" href="index.html">Back Home</a>
+</nav>
+<main>
+  <section class="hero">
+    <div class="eyebrow">Events</div>
+    <h1>Workshops, Schools, and Community Sessions</h1>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur fermentum lectus in elementum porta. Nam eu lorem vitae magna pulvinar porta.</p>
+  </section>
+
+  <section class="grid">
+    <article class="card">
+      <div class="meta">June 2026 · Lorem City</div>
+      <div class="title">Lorem Ipsum Workshop</div>
+      <p class="copy">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum eleifend justo id sem mollis, quis faucibus nisl dapibus.</p>
+      <a class="link" href="#">Register</a>
+    </article>
+    <article class="card">
+      <div class="meta">July 2026 · Ipsum Hall</div>
+      <div class="title">Beam Dynamics Summer School</div>
+      <p class="copy">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean sed sapien sit amet erat tincidunt eleifend et vel mauris.</p>
+      <a class="link" href="#">Register</a>
+    </article>
+    <article class="card">
+      <div class="meta">August 2026 · Dolor Lab</div>
+      <div class="title">Global Educators Forum</div>
+      <p class="copy">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque sed arcu vitae nunc placerat finibus in in eros.</p>
+      <a class="link" href="#">Register</a>
+    </article>
+    <article class="card">
+      <div class="meta">September 2026 · Sit Arena</div>
+      <div class="title">Machine Learning for Beamlines</div>
+      <p class="copy">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin malesuada nisi ac magna efficitur, in consequat mauris interdum.</p>
+      <a class="link" href="#">Register</a>
+    </article>
+    <article class="card">
+      <div class="meta">October 2026 · Amet Center</div>
+      <div class="title">Open Simulation Sprint</div>
+      <p class="copy">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc dignissim sem at finibus volutpat, felis justo tincidunt enim.</p>
+      <a class="link" href="#">Register</a>
+    </article>
+    <article class="card">
+      <div class="meta">November 2026 · Consectetur Hub</div>
+      <div class="title">International Student Challenge</div>
+      <p class="copy">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus feugiat, velit quis volutpat varius, arcu est ultrices ligula.</p>
+      <a class="link" href="#">Register</a>
+    </article>
+  </section>
+
+  <footer>© 2026 SILMARIL</footer>
+</main>
+</body>
+</html>
