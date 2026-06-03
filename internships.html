@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SILMARIL | Internships</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@300;400;600;700&family=Barlow:wght@300;400;500;600&family=Space+Mono&display=swap');
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --bg:#f5fcfb;--navy:#eaf7f4;--cyan:#1d9fbd;--green:#74d65a;--white:#143341;--muted:#496772;
+  --card:rgba(255,255,255,.93);--bd:rgba(62,186,162,.24);--bd2:rgba(116,214,90,.4);
+}
+body{background:var(--bg);color:var(--white);font-family:'Barlow',sans-serif;line-height:1.65;}
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:center;justify-content:space-between;padding:0 2rem;height:60px;background:rgba(246,255,253,.92);backdrop-filter:blur(14px);border-bottom:1px solid var(--bd);}
+.logo{display:inline-flex;align-items:center;text-decoration:none;}
+.site-mark{height:34px;width:34px;object-fit:cover;object-position:center;border-radius:9px;padding:2px;background:#d9dcde;border:1px solid rgba(255,255,255,.45);}
+.nav-links{display:flex;gap:1.5rem;list-style:none;}
+.nav-links a{color:var(--muted);text-decoration:none;font-family:'Chakra Petch',monospace;font-size:.75rem;letter-spacing:.09em;text-transform:uppercase;}
+.nav-links a:hover,.nav-links a[aria-current="page"]{color:var(--cyan);}
+.nav-btn{background:transparent;border:1px solid var(--bd2);color:var(--cyan);padding:.38rem 1rem;font-family:'Chakra Petch',monospace;font-size:.74rem;letter-spacing:.08em;text-transform:uppercase;border-radius:2px;text-decoration:none;}
+main{padding:96px 2rem 4rem;}
+.hero{max-width:1100px;margin:0 auto 2.4rem;padding:1.6rem 1.5rem;border:1px solid var(--bd);border-radius:10px;background:linear-gradient(135deg,rgba(29,159,189,.12),rgba(116,214,90,.12));}
+.eyebrow{font-family:'Space Mono',monospace;font-size:.65rem;letter-spacing:.16em;text-transform:uppercase;color:var(--cyan);margin-bottom:.6rem;}
+h1{font-family:'Chakra Petch',monospace;font-size:clamp(1.8rem,3.2vw,2.6rem);line-height:1.12;margin-bottom:.5rem;}
+.hero p{max-width:760px;color:var(--muted);}
+.note{max-width:1100px;margin:0 auto 1.2rem;font-family:'Space Mono',monospace;font-size:.68rem;letter-spacing:.04em;text-transform:uppercase;color:#3f6d8d;}
+.grid{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1.1rem;list-style:none;}
+.card{height:100%;background:var(--card);border:1px solid var(--bd);border-radius:8px;padding:1.15rem;box-shadow:0 10px 24px rgba(16,92,93,.08);display:flex;flex-direction:column;}
+.card-head{display:flex;align-items:flex-start;justify-content:space-between;gap:.8rem;margin-bottom:.55rem;}
+.number{font-family:'Space Mono',monospace;font-size:.66rem;color:var(--cyan);border:1px solid rgba(29,159,189,.28);background:rgba(29,159,189,.08);border-radius:999px;padding:.1rem .48rem;line-height:1.4;white-space:nowrap;}
+.meta{font-family:'Space Mono',monospace;font-size:.62rem;letter-spacing:.08em;text-transform:uppercase;color:#3f6d8d;}
+.title{font-family:'Chakra Petch',monospace;font-weight:700;font-size:1rem;line-height:1.3;margin-bottom:.45rem;}
+.copy{font-size:.86rem;color:var(--muted);flex:1;}
+.link{display:inline-flex;align-self:flex-start;margin-top:.85rem;font-family:'Space Mono',monospace;font-size:.66rem;letter-spacing:.06em;text-transform:uppercase;color:var(--cyan);text-decoration:none;}
+.link:hover{text-decoration:underline;}
+footer{max-width:1100px;margin:2.4rem auto 0;padding-top:1.2rem;border-top:1px solid var(--bd);font-family:'Space Mono',monospace;font-size:.62rem;color:rgba(20,52,65,.55);}
+@media(max-width:960px){.nav-links{display:none;}.grid{grid-template-columns:1fr 1fr;}}
+@media(max-width:640px){nav{padding:0 1rem;}main{padding:88px 1rem 3rem;}.grid{grid-template-columns:1fr;}.hero{padding:1.35rem 1.15rem;}}
+</style>
+</head>
+<body>
+<nav>
+  <a class="logo" href="index.html" aria-label="SILMARIL home"><img class="site-mark" src="assets/img/logos/silmaril-mark.png" alt="SILMARIL symbol" /></a>
+  <ul class="nav-links">
+    <li><a href="index.html#about">About</a></li>
+    <li><a href="tools.html">Tools</a></li>
+    <li><a href="events.html">Events</a></li>
+    <li><a href="news.html">News</a></li>
+    <li><a aria-current="page" href="internships.html">Internships</a></li>
+    <li><a href="index.html#opportunities">Opportunities</a></li>
+  </ul>
+  <a class="nav-btn" href="index.html">Back Home</a>
+</nav>
+<main>
+  <section class="hero">
+    <div class="eyebrow">Internship Directory</div>
+    <h1>Research Internships and Student Programs</h1>
+    <p>A short list of facilities, institutes, and organizations that offer research internships, summer studentships, or student placements in accelerator science, quantum science, fusion, space, nanoscience, and theoretical physics.</p>
+  </section>
+
+  <div class="note">Official links change often, so check each program page for current dates and eligibility.</div>
+
+  <ol class="grid">
+    <li>
+      <article class="card">
+        <div class="card-head">
+          <div class="meta">Hamburg, Germany</div>
+          <div class="number">01</div>
+        </div>
+        <div class="title">DESY Summer Student Programme</div>
+        <p class="copy">DESY is a major German research centre for accelerators, photon science, particle physics, astroparticle physics, and scientific computing, with hands-on summer research projects for students.</p>
+        <a class="link" href="https://summerstudents.desy.de/" target="_blank" rel="noopener noreferrer">Visit Program</a>
+      </article>
+    </li>
+    <li>
+      <article class="card">
+        <div class="card-head">
+          <div class="meta">Basque Country, Spain</div>
+          <div class="number">02</div>
+        </div>
+        <div class="title">CIC nanoGUNE Summer Internships</div>
+        <p class="copy">CIC nanoGUNE is a nanoscience research centre in San Sebastian focused on quantum nanoscience, nanomaterials, nanomedicine, nanooptics, nanodevices, and related nanoscale technologies.</p>
+        <a class="link" href="https://www.nanogune.eu/en/training/summer-internships" target="_blank" rel="noopener noreferrer">Visit Program</a>
+      </article>
+    </li>
+    <li>
+      <article class="card">
+        <div class="card-head">
+          <div class="meta">Okinawa, Japan</div>
+          <div class="number">03</div>
+        </div>
+        <div class="title">OIST Research Internship</div>
+        <p class="copy">OIST is an interdisciplinary graduate university with research units across physics, biology, chemistry, neuroscience, mathematics, computation, marine science, and engineering.</p>
+        <a class="link" href="https://www.oist.jp/admissions/research-internship/apply-research-internship" target="_blank" rel="noopener noreferrer">Visit Program</a>
+      </article>
+    </li>
+    <li>
+      <article class="card">
+        <div class="card-head">
+          <div class="meta">Klosterneuburg, Austria</div>
+          <div class="number">04</div>
+        </div>
+        <div class="title">ISTA Scientific Internships</div>
+        <p class="copy">ISTA is a research institute near Vienna for basic science in biology, chemistry, physics, mathematics, computer science, neuroscience, and interdisciplinary fields.</p>
+        <a class="link" href="https://www.ist.ac.at/en/education/internship-and-scholarship/" target="_blank" rel="noopener noreferrer">Visit Program</a>
+      </article>
+    </li>
+    <li>
+      <article class="card">
+        <div class="card-head">
+          <div class="meta">Munich, Germany</div>
+          <div class="number">05</div>
+        </div>
+        <div class="title">MCQST Summer Bachelor Program</div>
+        <p class="copy">MCQST connects Munich research groups working on quantum information, quantum computing, communication, simulation, sensing, quantum matter, and quantum technologies.</p>
+        <a class="link" href="https://www.mcqst.de/support/summer-bachelor-program/" target="_blank" rel="noopener noreferrer">Visit Program</a>
+      </article>
+    </li>
+    <li>
+      <article class="card">
+        <div class="card-head">
+          <div class="meta">Culham, England</div>
+          <div class="number">06</div>
+        </div>
+        <div class="title">UKAEA Student Placements</div>
+        <p class="copy">UKAEA leads UK fusion energy research and hosts student placements in fusion science, engineering, computing, robotics, materials, operations, and supporting technical fields.</p>
+        <a class="link" href="https://careers.ukaea.uk/early-careers/placements-and-work-experience/" target="_blank" rel="noopener noreferrer">Visit Program</a>
+      </article>
+    </li>
+    <li>
+      <article class="card">
+        <div class="card-head">
+          <div class="meta">Waterloo, Canada</div>
+          <div class="number">07</div>
+        </div>
+        <div class="title">Perimeter Undergraduate Summer Programs</div>
+        <p class="copy">Perimeter Institute is an independent theoretical physics centre focused on fundamental questions in quantum fields, gravity, cosmology, quantum information, and related areas.</p>
+        <a class="link" href="https://perimeterinstitute.ca/psi-start" target="_blank" rel="noopener noreferrer">Visit Program</a>
+      </article>
+    </li>
+    <li>
+      <article class="card">
+        <div class="card-head">
+          <div class="meta">Cadarache, France</div>
+          <div class="number">08</div>
+        </div>
+        <div class="title">ITER Internships</div>
+        <p class="copy">ITER is an international fusion project building a large tokamak to demonstrate burning plasma physics, integrating engineering, superconducting magnets, cryogenics, robotics, and plasma science.</p>
+        <a class="link" href="https://www.iter.org/public/jobs/internships" target="_blank" rel="noopener noreferrer">Visit Program</a>
+      </article>
+    </li>
+    <li>
+      <article class="card">
+        <div class="card-head">
+          <div class="meta">Geneva, Switzerland</div>
+          <div class="number">09</div>
+        </div>
+        <div class="title">CERN Summer Studentship</div>
+        <p class="copy">CERN is the European particle physics laboratory, home to major accelerator facilities and experiments, with summer projects in physics, engineering, computing, and mathematics.</p>
+        <a class="link" href="https://careers.cern/programmes/summer-studentship/" target="_blank" rel="noopener noreferrer">Visit Program</a>
+      </article>
+    </li>
+    <li>
+      <article class="card">
+        <div class="card-head">
+          <div class="meta">New York, USA</div>
+          <div class="number">10</div>
+        </div>
+        <div class="title">IBM Internships</div>
+        <p class="copy">IBM Research and IBM Quantum work on enterprise AI, semiconductors, hybrid cloud, quantum computing, and advanced computing systems, with internships across research and technology teams.</p>
+        <a class="link" href="https://www.ibm.com/careers/internships" target="_blank" rel="noopener noreferrer">Visit Program</a>
+      </article>
+    </li>
+    <li>
+      <article class="card">
+        <div class="card-head">
+          <div class="meta">Tokyo, Japan</div>
+          <div class="number">11</div>
+        </div>
+        <div class="title">JAXA Internship Program</div>
+        <p class="copy">JAXA is Japan's space agency, supporting space science, launch vehicles, Earth observation, exploration, aeronautics, and mission operations through short-term student internships.</p>
+        <a class="link" href="https://global.jaxa.jp/about/employ/index.html" target="_blank" rel="noopener noreferrer">Visit Program</a>
+      </article>
+    </li>
+  </ol>
+
+  <footer>© 2026 SILMARIL</footer>
+</main>
+</body>
+</html>
