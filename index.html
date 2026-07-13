@@ -104,6 +104,7 @@ h1 .hl{color:var(--cyan);}
 .lg-sesame{background:#1597bc;}
 .lg-sirius{background:#74d65a;}
 .lg-maxiv{background:#3abda5;}
+.lg-asp2026{background:#e0303a;}
 
 /* LOGO STRIP */
 #logo{background:rgba(255,255,255,.88);padding:1.4rem 0 2rem;border-bottom:1px solid #cce5dc;}
@@ -386,7 +387,7 @@ footer{background:#e8f7f3;border-top:1px solid var(--bd);padding:4rem 2.8rem 2re
   <div class="hero-inner">
     <div class="map-wrap">
       <canvas id="mapCanvas"></canvas>
-      <div class="mlegend"><span class="lg lg-sesame"></span>SESAME (Jordan) <span class="lg lg-sirius"></span>SIRIUS (Brazil) <span class="lg lg-maxiv"></span>MAX IV (Sweden)</div>
+      <div class="mlegend"><span class="lg lg-sesame"></span>SESAME (Jordan) <span class="lg lg-sirius"></span>SIRIUS (Brazil) <span class="lg lg-maxiv"></span>MAX IV (Sweden) <span class="lg lg-asp2026"></span>ASP2026 (Kenya)</div>
       <div class="mbadge"></div>
       <div class="mbadge2"><span class="ldot2"></span><span id="fcount">28 FACILITIES</span></div>
     </div>
@@ -749,13 +750,15 @@ const FAC = [
   {abbr:'SLRI',     name:'Synchrotron Light Research Institute',            loc:'Nakhon Ratchasima, Thailand',lat:14.89,lon:102.02, energy:'1.2 GeV', year:2004, beams:8,  url:'https://www.slri.or.th/en_web'},
   {abbr:'SESAME',   name:'SESAME Synchrotron',                              loc:'Allan, Jordan',             lat:32.05, lon:35.87,  energy:'2.5 GeV',  year:2017, beams:5,  url:'https://www.sesame.org.jo/'},
   {abbr:'AS',       name:'Australian Synchrotron',                          loc:'Melbourne, Australia',      lat:-37.9, lon:145.14, energy:'3 GeV',    year:2007, beams:10, url:'https://www.ansto.gov.au/facilities/australian-synchrotron'},
+  {abbr:'Kenya',    name:'ASP2026',                                         loc:'Nairobi, Kenya',            lat:-1.29, lon:36.82, energy:'—',         year:2026, beams:0, url:'https://colab.research.google.com/drive/1clIWRmUFQWJcaJp4_euMYcgbdCeEtVKB?usp=sharing'},
 ];
 
 const FEATURED = {
   SESAME: '#1597bc',
   SIRIUS: '#74d65a',
   'MAX IV': '#3abda5',
-  Diamond: '#ffd84d'
+  Diamond: '#ffd84d',
+  Kenya: '#e0303a'
 };
 const DEFAULT_MARKER = '#f7fffe';
 
@@ -965,7 +968,7 @@ function draw(t) {
     drawFallbackLand();
   }
 
-  const tau = t / 1000;
+const tau = t / 1000;
   FAC.forEach(f=>{
     const [x,y]=proj(f.lon,f.lat);
     const isH = hovered===f;
@@ -1002,12 +1005,13 @@ function draw(t) {
           dx: 0,
           dy: -14
         });
+      } else if (f.abbr === 'Kenya') {
+        drawLabel('ASP2026', x, y, featuredColor);
       } else {
         drawLabel(f.abbr, x, y, featuredColor);
       }
     }
   });
-}
 
 function loop(t){ draw(t); requestAnimationFrame(loop); }
 
