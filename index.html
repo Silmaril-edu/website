@@ -233,6 +233,20 @@ section{padding:6rem 2.8rem;position:relative;}
 .tdesc{font-size:.82rem;color:var(--muted);line-height:1.65;margin-bottom:1.1rem;}
 .tbadge{display:inline-flex;align-items:center;font-family:'Space Mono',monospace;font-size:.6rem;color:var(--cyan);border:1px solid rgba(62,186,162,.35);padding:.12rem .5rem;border-radius:2px;letter-spacing:.08em;}
 .tbadge.soon{color:var(--muted);border-color:rgba(80,110,140,.35);}
+.tlinks{
+  font-family:'Space Mono',monospace;
+  font-size:.7rem;
+  letter-spacing:.05em;
+  text-transform:uppercase;
+  color:var(--muted);
+}
+.tlinks a{
+  color:var(--cyan);
+  text-decoration:none;
+}
+.tlinks a:hover{
+  text-decoration:underline;
+}
 
 /* QUADRUPOLE DEMO */
 #quadrupole-demo{background:var(--bg);}
@@ -394,31 +408,6 @@ footer{background:#e8f7f3;border-top:1px solid var(--bd);padding:4rem 2.8rem 2re
   </div>
 </section>
 
-<!-- <section id="logo" class="clients section">
-  <div class="logo-wrap">
-    <div class="logo-rail">
-      <div class="logo-track">
-        <div class="simu-logo"><img class="simu-upload" src="img/logos/ipac26.png" alt="IPAC26"></div>
-        <div class="simu-logo"><img class="simu-upload" src="img/logos/iupap.png" alt="IUPAP"></div>
-        <div class="simu-logo"><img class="simu-upload" src="img/logos/maxiv.png" alt="<AXIV"></div>
-        <div class="simu-logo"><img class="simu-upload" src="img/logos/solaris.png" alt="Solaris"></div>
-        <div class="simu-logo"><img class="simu-upload" src="img/logos/oxford.png" alt="Oxford"></div>
-        <div class="simu-logo"><img class="simu-upload" src="img/logos/paris.png" alt="Paris"></div>
-        <div class="simu-logo"><img class="simu-upload" src="img/logos/michigan.png" alt="Michigan"></div>
-        <div class="simu-logo"><img class="simu-upload" src="img/logos/ustc.png" alt="USTC"></div>
-        <div class="simu-logo"><img class="simu-upload" src="img/logos/ipac26.png" alt="IPAC26"></div>
-        <div class="simu-logo"><img class="simu-upload" src="img/logos/iupap.png" alt="IUPAP"></div>
-        <div class="simu-logo"><img class="simu-upload" src="img/logos/maxiv.png" alt="<AXIV"></div>
-        <div class="simu-logo"><img class="simu-upload" src="img/logos/solaris.png" alt="Solaris"></div>
-        <div class="simu-logo"><img class="simu-upload" src="img/logos/oxford.png" alt="Oxford"></div>
-        <div class="simu-logo"><img class="simu-upload" src="img/logos/paris.png" alt="Paris"></div>
-        <div class="simu-logo"><img class="simu-upload" src="img/logos/michigan.png" alt="Michigan"></div>
-        <div class="simu-logo"><img class="simu-upload" src="img/logos/ustc.png" alt="USTC"></div>
-      </div>
-    </div>
-  </div>
-</section> -->
-
 <section id="about">
   <div class="sinner">
     <div class="stag">About SILMARIL</div>
@@ -435,125 +424,18 @@ footer{background:#e8f7f3;border-top:1px solid var(--bd);padding:4rem 2.8rem 2re
     <div class="stitle">Educational Tools</div>
     <p class="ssub">Our suite of interactive tools is designed for researchers, educators, students, and the curious public, from facility deep-dives to guided science modules.</p>
     <div class="tools-grid">
-      <!-- <div class="tcard fu">
+      <div class="tcard fu">
         <div class="tico">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4"/></svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 9h6v6H9z"/></svg>
         </div>
-        <div class="tname">Beam parameters through a quadrupole</div>
-        <p class="tdesc">Track how a quadrupole alters your beam parameters.</p>
-        <span class="tbadge">Interactive</span>
-      </div> -->
-      <!-- <div class="tcard fu">
-        <div class="tico">
-         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12h5l4 8 5-16 3 8h3"/></svg>
-        </div>
-        <div class="tname">Chromaticity through a quadrupole</div>
-        <p class="tdesc">Pass your beam through a quadrupole and observe the different energies of your beam being focused differently.</p>
-        <span class="tbadge">Interactive</span>
-      </div> -->
-      <!-- <div class="tcard fu">
-        <div class="tico">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
-        </div>
-        <div class="tname">Generator Ring</div>
-        <p class="tdesc">Explore, monitor and tune the core parameters and operate this virtual accelerator</p>
-        <span class="tbadge">Education</span>
-      </div> -->
+        <div class="tname">ASP2026</div>
+        <p class="tdesc">Particle Accelerator</p>
+        <div class="tlinks"><a href="https://colab.research.google.com/drive/1clIWRmUFQWJcaJp4_euMYcgbdCeEtVKB?usp=sharing" target="_blank" rel="noopener noreferrer">Collab</a> | <a href="pdfs/your-guide.pdf" target="_blank" rel="noopener noreferrer">PDF</a></div>
+      </div>
     </div>
     <a class="card-link" href="#">View all educational tools</a>
   </div>
 </section>
-
-<!-- <section id="quadrupole-demo">
-  <div class="sinner">
-    <div class="stag">Interactive Demo</div>
-    <div class="stitle">Quadrupole</div>
-    <p class="ssub">Explore the 3D quadrupole model. </p>
-    <div class="demo-panel fu">
-      <div class="q3d-shell">
-        <div class="q3d-widget" aria-label="Interactive 3D quadrupole model">
-          <div id="quad-scene"></div>
-          <div class="q3d-controls">
-            <button id="quadToggleSpin" data-active="true">Rotation: on</button>
-            <button id="quadToggleBeam" data-active="true">Beam: on</button>
-          </div>
-          <div class="q3d-status" id="quadLoadStatus" data-state="loading">Loading 3D...</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section> -->
-
-  <!-- <section id="logo" class="clients section">
-  <div class="logo-wrap">
-    <div class="logo-rail">
-      <div class="logo-track">
-        <div class="simu-logo"><img class="simu-upload" src="img/logos/sigma-phi" alt="sigmaphi"></div>
-        <div class="simu-logo"><img class="simu-upload" src="img/logos/stangenes-logo.jpeg" alt="stangenes"></div>
-        <div class="simu-logo"><img class="simu-upload" src="img/logos/thermofisher.png" alt="<thermofisher"></div>
-        <div class="simu-logo"><img class="simu-upload" src="img/logos/sigma-phi" alt="sigmaphi"></div>
-        <div class="simu-logo"><img class="simu-upload" src="img/logos/stangenes-logo.jpeg" alt="stangenes"></div>
-        <div class="simu-logo"><img class="simu-upload" src="img/logos/thermofisher.png" alt="<thermofisher"></div>
-        <div class="simu-logo"><img class="simu-upload" src="img/logos/sigma-phi" alt="sigmaphi"></div>
-        <div class="simu-logo"><img class="simu-upload" src="img/logos/stangenes-logo.jpeg" alt="stangenes"></div>
-        <div class="simu-logo"><img class="simu-upload" src="img/logos/thermofisher.png" alt="<thermofisher"></div>
-        <div class="simu-logo"><img class="simu-upload" src="img/logos/sigma-phi" alt="sigmaphi"></div>
-        <div class="simu-logo"><img class="simu-upload" src="img/logos/stangenes-logo.jpeg" alt="stangenes"></div>
-        <div class="simu-logo"><img class="simu-upload" src="img/logos/thermofisher.png" alt="<thermofisher"></div>
-      </div>
-    </div>
-  </div>
-</section> -->
-
-<!-- <section id="suppliers">
-  <div class="sinner">
-    <div class="stag">Link to Industries</div>
-    <div class="stitle">Accelerator Component Suppliers</div>
-    <p class="ssub">Example companies that provide optics, precision positioning, and beam conditioning components frequently used around synchrotron beamlines.</p>
-   <div class="sup-grid">
-      <article class="sup-card fu">
-        <div class="sup-name">SigmaPhi</div>
-        <p class="sup-role">They specialize in the design and manufacture of custom, high-precision electromagnets and superconducting magnets for particle accelerators and magnetic systems. Their technologies drive beamlines and storage rings in major international research laboratories and nuclear fusion projects.</p>
-        <a class="sup-link" href="https://www.sigmaphi.com/sectors/research/" target="_blank" rel="noopener noreferrer">Visit</a>
-      </article>
-      <article class="sup-card fu">
-        <div class="sup-name">Stangenes Industries</div>
-        <p class="sup-role">They engineer specialized high-voltage components, including custom charging inductors equipped with secondary windings for De-Q'ing circuits. These are critical for regulating Pulse Forming Network (PFN) voltages and optimizing power distribution in line-type modulators.</p>
-        <a class="sup-link" href="https://www.stangenes.com/products/charging-inductors/" target="_blank" rel="noopener noreferrer">Visit</a>
-      </article>
-      <article class="sup-card fu">
-        <div class="sup-name">XDS Oxford</div>
-        <p class="sup-role">They specialize in entire, end-to-end beamline engineering. This includes massive infrastructure components like insertion devices (undulators and wigglers), advanced monochromator systems for filtering specific X-ray wavelengths, and full in-vacuum, multi-purpose experimental end stations.</p>
-        <a class="sup-link" href="https://xds-oxford.com" target="_blank" rel="noopener noreferrer">Visit</a>
-      </article>
-      <article class="sup-card fu">
-        <div class="sup-name">SmarAct</div>
-        <p class="sup-role">PI provides heavy-duty yet incredibly precise sample positioning stages, multi-axis goniometers, six-degree-of-freedom hexapods (used to align complex X-ray optics mirrors), and vacuum-compatible/cryogenic manipulation systems for hostile radiation environments.</p>
-        <a class="sup-link" href="https://www.physikinstrumente.co.uk/en/" target="_blank" rel="noopener noreferrer">Visit</a>
-      </article>
-      <article class="sup-card fu">
-        <div class="sup-name">RI Research Instruments GmbH</div>
-        <p class="sup-role">They are highly sought after for state-of-the-art X-ray mirror systems and ultra-low vibration cryocooler systems. They are also unique for producing specialized experimental setups, such as full-field and scanning X-ray microscopes (TXM/STXM) and protein crystallography end stations.</p>
-        <a class="sup-link" href="https://www.research-instruments.de/en/" target="_blank" rel="noopener noreferrer">Visit</a>
-      </article>
-      <article class="sup-card fu">
-        <div class="sup-name">Thermo Fisher Scientific</div>
-        <p class="sup-role">They deliver industry-leading analytical instruments, laboratory equipment, and consumables. In research and beamline settings, their high-end electron microscopy (SEM/TEM) systems and mass spectrometers provide essential surface analysis, material characterization, and imaging data.</p>
-        <a class="sup-link" href="https://www.thermofisher.com" target="_blank" rel="noopener noreferrer">Visit</a>
-      </article>
-      <article class="sup-card fu">
-        <div class="sup-name">Agilent Technologies</div>
-        <p class="sup-role">They provide robust analytical instrumentation, vacuum technologies, and lab workflows. Their high-performance vacuum pumps, leak detectors, gas chromatography (GC), and liquid chromatography (LC) systems are vital for maintaining extreme testing conditions and analytical precision.</p>
-        <a class="sup-link" href="https://www.agilent.com" target="_blank" rel="noopener noreferrer">Visit</a>
-      </article>
-      <article class="sup-card fu">
-        <div class="sup-name">Shimadzu Corporation</div>
-        <p class="sup-role">They specialize in a broad range of high-precision analytical and measuring instruments, including optical evaluation tools, X-ray fluorescence spectrometers, and environmental monitoring equipment. They offer crucial support for quality control and structural investigation in specialized labs.</p>
-        <a class="sup-link" href="https://www.shimadzu.com" target="_blank" rel="noopener noreferrer">Visit</a>
-      </article>
-    </div>
-  </div>
-</section> -->
 
 <section id="team">
   <div class="sinner">
@@ -561,16 +443,6 @@ footer{background:#e8f7f3;border-top:1px solid var(--bd);padding:4rem 2.8rem 2re
     <div class="stitle">Our Team</div>
     <p class="ssub">Built by a passionate community of physicists from leading synchrotron facilities and institutions across the globe.</p>
     <div class="team-wrap">
-      <!-- <div class="tperson fu">
-        <div class="av" style="background:linear-gradient(145deg,#001e44,#0060b0)">SW</div>
-        <div class="tpname">Sverker Werin</div>
-        <div class="tpaffil">MAX IV<br>Sweden</div>
-      </div>
-      <div class="tperson fu">
-        <div class="av" style="background:linear-gradient(145deg,#001e44,#0060b0)">FC</div>
-        <div class="tpname">Francesca Curbis</div>
-        <div class="tpaffil">MAX IV<br>Sweden</div>
-      </div> -->
       <div class="tperson fu">
         <div class="av" style="background:linear-gradient(145deg,#001e44,#0060b0)">HA</div>
         <div class="tpname">Helena Alamprese</div>
@@ -622,17 +494,6 @@ footer{background:#e8f7f3;border-top:1px solid var(--bd);padding:4rem 2.8rem 2re
         <p class="event-copy">Launch your research journey with our curated selection of premier internships and placements at world-leading facilities.</p>
         <a class="card-link" href="internships.html">Learn More</a>
       </article>
-      <!-- <article class="event-card fu">
-        <div class="event-meta">Join Us</div>
-        <h3 class="event-title">Research Collaboration Program</h3>
-        <p class="event-copy">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus viverra augue non lorem aliquet, ac eleifend turpis eleifend.</p>
-        <a class="card-link" href="#">Learn More</a>
-      </article>
-      <article class="event-card fu">
-        <div class="event-meta">Fellowship</div>
-        <h3 class="event-title">Global Teaching Fellowship</h3>
-        <p class="event-copy">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed finibus sapien nec quam feugiat, vel dapibus libero tristique.</p>
-        <a class="card-link" href="#">Learn More</a> -->
       </article>
     </div>
   </div>
@@ -750,7 +611,7 @@ const FAC = [
   {abbr:'SLRI',     name:'Synchrotron Light Research Institute',            loc:'Nakhon Ratchasima, Thailand',lat:14.89,lon:102.02, energy:'1.2 GeV', year:2004, beams:8,  url:'https://www.slri.or.th/en_web'},
   {abbr:'SESAME',   name:'SESAME Synchrotron',                              loc:'Allan, Jordan',             lat:32.05, lon:35.87,  energy:'2.5 GeV',  year:2017, beams:5,  url:'https://www.sesame.org.jo/'},
   {abbr:'AS',       name:'Australian Synchrotron',                          loc:'Melbourne, Australia',      lat:-37.9, lon:145.14, energy:'3 GeV',    year:2007, beams:10, url:'https://www.ansto.gov.au/facilities/australian-synchrotron'},
-  {abbr:'Kenya',    name:'ASP2026',                                         loc:'Nairobi, Kenya',            lat:-1.29, lon:36.82, energy:'—',         year:2026, beams:0, url:'https://colab.research.google.com/drive/1clIWRmUFQWJcaJp4_euMYcgbdCeEtVKB?usp=sharing'},
+  {abbr:'Kenya',    name:'ASP2026',                                         loc:'Kenya',            lat:-1.29, lon:36.82, energy:'—',         year:'-', beams:'-', url:'https://colab.research.google.com/drive/1clIWRmUFQWJcaJp4_euMYcgbdCeEtVKB?usp=sharing'},
 ];
 
 const FEATURED = {
@@ -968,7 +829,7 @@ function draw(t) {
     drawFallbackLand();
   }
 
-const tau = t / 1000;
+  const tau = t / 1000;
   FAC.forEach(f=>{
     const [x,y]=proj(f.lon,f.lat);
     const isH = hovered===f;
@@ -1012,6 +873,7 @@ const tau = t / 1000;
       }
     }
   });
+}
 
 function loop(t){ draw(t); requestAnimationFrame(loop); }
 
