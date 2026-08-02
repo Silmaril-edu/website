@@ -104,7 +104,13 @@ h1 .hl{color:var(--cyan);}
 .lg-sesame{background:#1597bc;}
 .lg-sirius{background:#74d65a;}
 .lg-maxiv{background:#3abda5;}
-.lg-asp2026{background:#e0303a;}
+.mlegend .lg-asp2026{
+  width:11px;
+  height:11px;
+  border-radius:0;
+  background:#e0303a;
+  clip-path:polygon(50% 0%,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%);
+}
 
 /* LOGO STRIP */
 #logo{background:rgba(255,255,255,.88);padding:1.4rem 0 2rem;border-bottom:1px solid #cce5dc;}
@@ -450,6 +456,26 @@ footer{background:#e8f7f3;border-top:1px solid var(--bd);padding:4rem 2.8rem 2re
   </div>
 </section>
 
+<section id="quadrupole-demo">
+  <div class="sinner">
+    <div class="stag">Interactive Demo</div>
+    <div class="stitle">Quadrupole</div>
+    <p class="ssub">Explore the 3D quadrupole model. </p>
+    <div class="demo-panel fu">
+      <div class="q3d-shell">
+        <div class="q3d-widget" aria-label="Interactive 3D quadrupole model">
+          <div id="quad-scene"></div>
+          <div class="q3d-controls">
+            <button id="quadToggleSpin" data-active="true">Rotation: on</button>
+            <button id="quadToggleBeam" data-active="true">Beam: on</button>
+          </div>
+          <div class="q3d-status" id="quadLoadStatus" data-state="loading">Loading 3D...</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section id="team">
   <div class="sinner">
     <div class="stag">The People Behind the Platform</div>
@@ -729,6 +755,22 @@ function drawLabel(text, x, y, color, options = {}) {
   ctx.textBaseline = 'alphabetic';
 }
 
+function traceStar(x, y, outerRadius, innerRadius, points = 5) {
+  const step = Math.PI / points;
+  ctx.moveTo(x, y - outerRadius);
+
+  for (let i = 1; i < points * 2; i += 1) {
+    const radius = i % 2 === 0 ? outerRadius : innerRadius;
+    const angle = -Math.PI / 2 + i * step;
+    ctx.lineTo(
+      x + Math.cos(angle) * radius,
+      y + Math.sin(angle) * radius
+    );
+  }
+
+  ctx.closePath();
+}
+
 function hexToRgb(hex) {
   const clean = (hex || '').replace('#', '');
   if (clean.length !== 6) return null;
@@ -865,8 +907,14 @@ function draw(t) {
     ctx.beginPath();ctx.arc(x,y,isH?8.5:(isFeatured?7:5.5),0,Math.PI*2);
     ctx.fillStyle=gr;ctx.fill();
 
-    ctx.beginPath();ctx.arc(x,y,isH?3.8:(isFeatured?3.3:2.6),0,Math.PI*2);
-    ctx.fillStyle=isH?'#ffffff':featuredColor;ctx.fill();
+    ctx.beginPath();
+    if (f.abbr === 'Kenya') {
+      traceStar(x, y, isH ? 7 : 6, isH ? 3.2 : 2.7);
+    } else {
+      ctx.arc(x,y,isH?3.8:(isFeatured?3.3:2.6),0,Math.PI*2);
+    }
+    ctx.fillStyle=isH?'#ffffff':featuredColor;
+    ctx.fill();
     ctx.strokeStyle = 'rgba(12,56,62,0.82)';
     ctx.lineWidth = 1;
     ctx.stroke();
