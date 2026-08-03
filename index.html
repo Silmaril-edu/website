@@ -260,14 +260,31 @@ section{padding:6rem 2.8rem;position:relative;}
 .q3d-shell{width:100%;margin:0;padding:0;display:block;}
 .q3d-widget{position:relative;width:100%;height:clamp(420px,64vh,700px);margin:0;border-radius:6px;overflow:hidden;border:1px solid rgba(255,255,255,.5);box-shadow:0 20px 35px rgba(18,85,84,.18),inset 0 1px 0 rgba(255,255,255,.9);background:radial-gradient(120% 160% at 8% 0%,rgba(255,255,255,.9),transparent 52%),radial-gradient(80% 90% at 100% 100%,rgba(113,205,129,.28),transparent 60%),linear-gradient(180deg,#f5fcfb,#e6f5ef);}
 #quad-scene{width:100%;height:100%;}
-.q3d-controls{position:absolute;right:14px;bottom:14px;display:flex;gap:8px;flex-wrap:wrap;justify-content:end;max-width:min(86vw,380px);}
+.q3d-controls{position:absolute;right:14px;bottom:14px;display:flex;gap:8px;flex-wrap:wrap;justify-content:end;max-width:min(58vw,540px);}
 .q3d-controls button{border:1px solid rgba(34,48,63,.24);background:rgba(255,255,255,.9);color:#1f2b36;border-radius:999px;padding:8px 12px;font-size:12px;cursor:pointer;transition:transform .16s ease,background .16s ease;}
 .q3d-controls button:hover{transform:translateY(-1px);background:#ffffff;}
 .q3d-controls button[data-active="true"]{background:#1f2b36;color:#f7fbff;}
+.q3d-controls button.q3d-mode[data-active="true"]{background:#087d76;border-color:#087d76;color:#ffffff;box-shadow:0 0 0 3px rgba(45,197,181,.16);}
+.q3d-widget [hidden]{display:none!important;}
 .q3d-status{position:absolute;right:14px;top:14px;padding:6px 10px;border-radius:999px;font-size:12px;border:1px solid rgba(34,48,63,.2);background:rgba(255,255,255,.88);color:#243241;backdrop-filter:blur(6px);}
 .q3d-status[data-state="loading"]{background:rgba(255,246,225,.95);color:#6f5111;}
 .q3d-status[data-state="ok"]{background:rgba(224,255,239,.95);color:#0a5e35;}
 .q3d-status[data-state="error"]{background:rgba(255,228,228,.95);color:#7a1821;}
+.q3d-readout{position:absolute;left:14px;top:14px;width:min(270px,calc(100% - 110px));padding:12px 14px;border:1px solid rgba(34,48,63,.18);border-radius:9px;background:rgba(255,255,255,.86);color:#243241;box-shadow:0 10px 26px rgba(22,70,75,.12);backdrop-filter:blur(8px);pointer-events:none;}
+.q3d-kicker{display:block;margin-bottom:8px;font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.13em;text-transform:uppercase;color:#138f84;}
+.q3d-metric{display:flex;align-items:baseline;justify-content:space-between;gap:12px;padding:3px 0;font-size:11px;color:#5a6875;}
+.q3d-metric strong{font-family:'Space Mono',monospace;font-size:10px;color:#1f2b36;text-align:right;}
+.q3d-gradient{position:absolute;left:14px;bottom:14px;width:min(315px,38vw);padding:10px 12px;border:1px solid rgba(34,48,63,.18);border-radius:9px;background:rgba(255,255,255,.9);color:#243241;box-shadow:0 10px 26px rgba(22,70,75,.12);backdrop-filter:blur(8px);}
+.q3d-gradient label{display:flex;justify-content:space-between;gap:12px;margin-bottom:7px;font-size:11px;font-weight:600;}
+.q3d-gradient output{font-family:'Space Mono',monospace;color:#0a8278;}
+.q3d-gradient input{display:block;width:100%;margin:0;accent-color:#159f92;cursor:pointer;}
+.q3d-scale{display:flex;justify-content:space-between;margin-top:4px;font-family:'Space Mono',monospace;font-size:8px;letter-spacing:.04em;color:#6d7b87;}
+@media(max-width:760px){
+  .q3d-readout{left:10px;top:10px;width:min(245px,calc(100% - 92px));}
+  .q3d-gradient{left:10px;right:10px;bottom:72px;width:auto;}
+  .q3d-controls{left:10px;right:10px;bottom:10px;max-width:none;justify-content:center;}
+  .q3d-controls button{padding:7px 9px;font-size:10px;}
+}
 
 /* SUPPLIERS */
 #suppliers{background:var(--bg);}
@@ -460,14 +477,29 @@ footer{background:#e8f7f3;border-top:1px solid var(--bd);padding:4rem 2.8rem 2re
   <div class="sinner">
     <div class="stag">Interactive Demo</div>
     <div class="stitle">Quadrupole</div>
-    <p class="ssub">Explore the 3D quadrupole model. </p>
+    <p class="ssub">Explore the 3D quadrupole, then switch on the optional beam-optics mode to see its focusing effect.</p>
     <div class="demo-panel fu">
       <div class="q3d-shell">
         <div class="q3d-widget" aria-label="Interactive 3D quadrupole model">
           <div id="quad-scene"></div>
+          <div class="q3d-readout q3d-optics-ui" aria-live="polite" hidden>
+            <span class="q3d-kicker">Live beam optics</span>
+            <div class="q3d-metric"><span>Focusing plane</span><strong id="quadFocusPlane">Horizontal (X)</strong></div>
+            <div class="q3d-metric"><span>Input beam</span><strong id="quadInputShape">round</strong></div>
+            <div class="q3d-metric"><span>Downstream screen</span><strong id="quadOutputShape">calculating...</strong></div>
+          </div>
+          <div class="q3d-gradient q3d-optics-ui" hidden>
+            <label for="quadGradient"><span>Magnetic gradient</span><output id="quadGradientValue">+60%</output></label>
+            <input id="quadGradient" type="range" min="-100" max="100" step="1" value="60" aria-label="Quadrupole magnetic gradient">
+            <div class="q3d-scale"><span>Focus Y</span><span>Field off</span><span>Focus X</span></div>
+          </div>
           <div class="q3d-controls">
             <button id="quadToggleSpin" data-active="true">Rotation: on</button>
-            <button id="quadToggleBeam" data-active="true">Beam: on</button>
+            <button id="quadToggleBeam" data-active="true">Beam pulse: on</button>
+            <button class="q3d-mode" id="quadToggleOptics" data-active="false">Beam optics: off</button>
+            <button class="q3d-optics-ui" id="quadToggleEnvelope" data-active="true" hidden>Envelope: on</button>
+            <button class="q3d-optics-ui" id="quadToggleForces" data-active="true" hidden>Forces: on</button>
+            <button class="q3d-optics-ui" id="quadToggleReference" data-active="true" hidden>Reference: on</button>
           </div>
           <div class="q3d-status" id="quadLoadStatus" data-state="loading">Loading 3D...</div>
         </div>
@@ -1001,6 +1033,16 @@ async function startQuadrupoleDemo() {
 
   const spinBtn = document.getElementById("quadToggleSpin");
   const beamBtn = document.getElementById("quadToggleBeam");
+  const opticsBtn = document.getElementById("quadToggleOptics");
+  const envelopeBtn = document.getElementById("quadToggleEnvelope");
+  const forcesBtn = document.getElementById("quadToggleForces");
+  const referenceBtn = document.getElementById("quadToggleReference");
+  const gradientInput = document.getElementById("quadGradient");
+  const gradientValueEl = document.getElementById("quadGradientValue");
+  const focusPlaneEl = document.getElementById("quadFocusPlane");
+  const inputShapeEl = document.getElementById("quadInputShape");
+  const outputShapeEl = document.getElementById("quadOutputShape");
+  const opticsUi = Array.from(document.querySelectorAll(".q3d-optics-ui"));
   const statusEl = document.getElementById("quadLoadStatus");
 
   function setStatus(text, state) {
@@ -1183,7 +1225,7 @@ async function startQuadrupoleDemo() {
       color: 0xb8ffd6,
       emissive: 0x69ffb2,
       emissiveIntensity: 0.95,
-      metalness: 0.0,
+      metalness: 0,
       roughness: 0.1,
       transparent: true,
       opacity: 0.98
@@ -1205,6 +1247,255 @@ async function startQuadrupoleDemo() {
   pulseHalo.scale.set(1.2, 1.2, 2.8);
   pulseCarrier.add(pulseHalo);
 
+  const Z_START = -4.2;
+  const Z_END = 4.2;
+  const QUAD_ENTRY = -0.825;
+  const QUAD_EXIT = 0.825;
+  const SCREEN_Z = 3.25;
+  const INPUT_SIGMA = 0.25;
+  const INPUT_DIVERGENCE = 0.018;
+
+  const beamRoot = new THREE.Group();
+  beamRoot.visible = false;
+  magnetRoot.add(beamRoot);
+
+  const beamAxis = new THREE.Line(
+    new THREE.BufferGeometry().setFromPoints([
+      new THREE.Vector3(0, 0, Z_START),
+      new THREE.Vector3(0, 0, Z_END)
+    ]),
+    new THREE.LineDashedMaterial({ color: 0x6acdbf, transparent: true, opacity: 0.34, dashSize: 0.15, gapSize: 0.11 })
+  );
+  beamAxis.computeLineDistances();
+  beamRoot.add(beamAxis);
+
+  function propagatePlane(position, angle, k, length) {
+    if (length <= 0) return { position, angle };
+    if (Math.abs(k) < 1e-8) {
+      return { position: position + angle * length, angle };
+    }
+
+    if (k > 0) {
+      const rootK = Math.sqrt(k);
+      const phase = rootK * length;
+      const c = Math.cos(phase);
+      const s = Math.sin(phase);
+      return {
+        position: c * position + (s / rootK) * angle,
+        angle: -rootK * s * position + c * angle
+      };
+    }
+
+    const rootK = Math.sqrt(-k);
+    const phase = rootK * length;
+    const c = Math.cosh(phase);
+    const s = Math.sinh(phase);
+    return {
+      position: c * position + (s / rootK) * angle,
+      angle: rootK * s * position + c * angle
+    };
+  }
+
+  function transportPlane(position, angle, z, k) {
+    if (z <= QUAD_ENTRY) {
+      return { position: position + angle * (z - Z_START), angle };
+    }
+
+    let transportedPosition = position + angle * (QUAD_ENTRY - Z_START);
+    let transportedAngle = angle;
+    const fieldLength = Math.min(z, QUAD_EXIT) - QUAD_ENTRY;
+    const throughField = propagatePlane(transportedPosition, transportedAngle, k, fieldLength);
+    transportedPosition = throughField.position;
+    transportedAngle = throughField.angle;
+
+    if (z > QUAD_EXIT) {
+      transportedPosition += transportedAngle * (z - QUAD_EXIT);
+    }
+
+    return { position: transportedPosition, angle: transportedAngle };
+  }
+
+  function sigmaAt(z, k) {
+    const positionColumn = transportPlane(1, 0, z, k).position;
+    const angleColumn = transportPlane(0, 1, z, k).position;
+    return Math.sqrt(
+      (positionColumn * INPUT_SIGMA) ** 2 +
+      (angleColumn * INPUT_DIVERGENCE) ** 2
+    );
+  }
+
+  function beamSizeAt(z, gradient) {
+    const k = gradient * 0.0014;
+    return {
+      x: sigmaAt(z, k),
+      y: sigmaAt(z, -k)
+    };
+  }
+
+  let randomSeed = 24681357;
+  function seededRandom() {
+    randomSeed = (1664525 * randomSeed + 1013904223) >>> 0;
+    return randomSeed / 4294967296;
+  }
+
+  function gaussianRandom() {
+    const u = Math.max(seededRandom(), 1e-8);
+    const v = seededRandom();
+    return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * v);
+  }
+
+  const PARTICLE_COUNT = 560;
+  const particleData = [];
+  const particlePositions = new Float32Array(PARTICLE_COUNT * 3);
+  for (let i = 0; i < PARTICLE_COUNT; i += 1) {
+    particleData.push({
+      x: Math.max(-3, Math.min(3, gaussianRandom())) * INPUT_SIGMA,
+      xp: Math.max(-3, Math.min(3, gaussianRandom())) * INPUT_DIVERGENCE,
+      y: Math.max(-3, Math.min(3, gaussianRandom())) * INPUT_SIGMA,
+      yp: Math.max(-3, Math.min(3, gaussianRandom())) * INPUT_DIVERGENCE,
+      longitudinal: seededRandom() * 0.62
+    });
+  }
+
+  const particleGeometry = new THREE.BufferGeometry();
+  particleGeometry.setAttribute("position", new THREE.BufferAttribute(particlePositions, 3));
+  const particleMaterial = new THREE.PointsMaterial({
+    color: 0x05080a,
+    size: 0.078,
+    sizeAttenuation: true,
+    transparent: true,
+    opacity: 0.96,
+    blending: THREE.NormalBlending,
+    depthWrite: false
+  });
+  const beamParticles = new THREE.Points(particleGeometry, particleMaterial);
+  beamParticles.frustumCulled = false;
+  beamRoot.add(beamParticles);
+
+  const ENVELOPE_SLICES = 48;
+  const ENVELOPE_SEGMENTS = 40;
+  const envelopePositions = new Float32Array(ENVELOPE_SLICES * ENVELOPE_SEGMENTS * 3);
+  const envelopeIndices = [];
+  for (let slice = 0; slice < ENVELOPE_SLICES - 1; slice += 1) {
+    for (let segment = 0; segment < ENVELOPE_SEGMENTS; segment += 1) {
+      const nextSegment = (segment + 1) % ENVELOPE_SEGMENTS;
+      const a = slice * ENVELOPE_SEGMENTS + segment;
+      const b = slice * ENVELOPE_SEGMENTS + nextSegment;
+      const c = (slice + 1) * ENVELOPE_SEGMENTS + nextSegment;
+      const d = (slice + 1) * ENVELOPE_SEGMENTS + segment;
+      envelopeIndices.push(a, b, d, b, c, d);
+    }
+  }
+
+  const envelopeGeometry = new THREE.BufferGeometry();
+  envelopeGeometry.setAttribute("position", new THREE.BufferAttribute(envelopePositions, 3));
+  envelopeGeometry.setIndex(envelopeIndices);
+  const envelopeMaterial = new THREE.MeshBasicMaterial({
+    color: 0x35d9c0,
+    transparent: true,
+    opacity: 0.12,
+    side: THREE.DoubleSide,
+    blending: THREE.AdditiveBlending,
+    depthWrite: false
+  });
+  const beamEnvelope = new THREE.Mesh(envelopeGeometry, envelopeMaterial);
+  beamEnvelope.frustumCulled = false;
+  beamRoot.add(beamEnvelope);
+
+  function createDiagnosticScreen(z, color) {
+    const screenGroup = new THREE.Group();
+    const screenPlane = new THREE.Mesh(
+      new THREE.CircleGeometry(1.33, 48),
+      new THREE.MeshBasicMaterial({ color, transparent: true, opacity: 0.035, side: THREE.DoubleSide, depthWrite: false })
+    );
+    screenGroup.add(screenPlane);
+
+    const ringPositions = new Float32Array(ENVELOPE_SEGMENTS * 3);
+    const ringGeometry = new THREE.BufferGeometry();
+    ringGeometry.setAttribute("position", new THREE.BufferAttribute(ringPositions, 3));
+    const ring = new THREE.LineLoop(
+      ringGeometry,
+      new THREE.LineBasicMaterial({ color, transparent: true, opacity: 0.8 })
+    );
+    screenGroup.add(ring);
+    screenGroup.position.z = z;
+    beamRoot.add(screenGroup);
+    return { z, group: screenGroup, ring, positions: ringPositions };
+  }
+
+  const diagnosticScreens = [
+    createDiagnosticScreen(-2.65, 0x71d8c8),
+    createDiagnosticScreen(QUAD_EXIT + 0.08, 0xffb64d),
+    createDiagnosticScreen(SCREEN_Z, 0x39aaff)
+  ];
+
+  const referencePositions = new Float32Array(ENVELOPE_SEGMENTS * 3);
+  const referenceGeometry = new THREE.BufferGeometry();
+  referenceGeometry.setAttribute("position", new THREE.BufferAttribute(referencePositions, 3));
+  const referenceRing = new THREE.LineLoop(
+    referenceGeometry,
+    new THREE.LineDashedMaterial({ color: 0xffffff, transparent: true, opacity: 0.72, dashSize: 0.09, gapSize: 0.07 })
+  );
+  referenceRing.position.z = SCREEN_Z + 0.012;
+  beamRoot.add(referenceRing);
+
+  function writeEllipse(positions, radiusX, radiusY) {
+    for (let segment = 0; segment < ENVELOPE_SEGMENTS; segment += 1) {
+      const angle = (segment / ENVELOPE_SEGMENTS) * Math.PI * 2;
+      const index = segment * 3;
+      positions[index] = Math.cos(angle) * radiusX;
+      positions[index + 1] = Math.sin(angle) * radiusY;
+      positions[index + 2] = 0;
+    }
+  }
+
+  function updateEnvelopeGeometry(gradient) {
+    for (let slice = 0; slice < ENVELOPE_SLICES; slice += 1) {
+      const z = Z_START + (slice / (ENVELOPE_SLICES - 1)) * (Z_END - Z_START);
+      const size = beamSizeAt(z, gradient);
+      const radiusX = size.x * 2.15;
+      const radiusY = size.y * 2.15;
+      for (let segment = 0; segment < ENVELOPE_SEGMENTS; segment += 1) {
+        const angle = (segment / ENVELOPE_SEGMENTS) * Math.PI * 2;
+        const index = (slice * ENVELOPE_SEGMENTS + segment) * 3;
+        envelopePositions[index] = Math.cos(angle) * radiusX;
+        envelopePositions[index + 1] = Math.sin(angle) * radiusY;
+        envelopePositions[index + 2] = z;
+      }
+    }
+    envelopeGeometry.attributes.position.needsUpdate = true;
+
+    diagnosticScreens.forEach((screen) => {
+      const size = beamSizeAt(screen.z, gradient);
+      writeEllipse(screen.positions, size.x * 2.15, size.y * 2.15);
+      screen.ring.geometry.attributes.position.needsUpdate = true;
+    });
+
+    const referenceSize = beamSizeAt(SCREEN_Z, 0);
+    writeEllipse(referencePositions, referenceSize.x * 2.15, referenceSize.y * 2.15);
+    referenceGeometry.attributes.position.needsUpdate = true;
+    referenceRing.computeLineDistances();
+  }
+
+  function updateParticlePositions(time, gradient) {
+    const travelLength = Z_END - Z_START;
+    const bunchFront = (time * 1.18) % travelLength;
+    const k = gradient * 0.0014;
+
+    particleData.forEach((particle, particleIndex) => {
+      const wrappedDistance = (bunchFront + particle.longitudinal) % travelLength;
+      const z = Z_START + wrappedDistance;
+      const horizontal = transportPlane(particle.x, particle.xp, z, k);
+      const vertical = transportPlane(particle.y, particle.yp, z, -k);
+      const index = particleIndex * 3;
+      particlePositions[index] = horizontal.position;
+      particlePositions[index + 1] = vertical.position;
+      particlePositions[index + 2] = z;
+    });
+
+    particleGeometry.attributes.position.needsUpdate = true;
+  }
+
   const fieldLines = new THREE.Group();
   const fieldMat = new THREE.MeshBasicMaterial({ color: 0xff6476, transparent: true, opacity: 0.32 });
   function addFieldArc(a0, a1, h) {
@@ -1224,18 +1515,153 @@ async function startQuadrupoleDemo() {
   }
   magnetRoot.add(fieldLines);
 
-  const state = { autoRotate: true, beamPulse: true, rotationSpeed: 0.0028 };
+  const forceArrowGroup = new THREE.Group();
+  const forceArrows = [];
+  ["x", "y"].forEach((axis) => {
+    [-1, 1].forEach((sign) => {
+      const origin = axis === "x"
+        ? new THREE.Vector3(sign * 0.76, 0, 0.48)
+        : new THREE.Vector3(0, sign * 0.76, 0.48);
+      const arrow = new THREE.ArrowHelper(
+        new THREE.Vector3(1, 0, 0),
+        origin,
+        0.5,
+        0x39aaff,
+        0.15,
+        0.1
+      );
+      forceArrowGroup.add(arrow);
+      forceArrows.push({ axis, sign, arrow });
+    });
+  });
+  beamRoot.add(forceArrowGroup);
+
+  const state = {
+    autoRotate: true,
+    beamPulse: true,
+    opticsMode: false,
+    particles: true,
+    envelope: true,
+    forces: true,
+    reference: true,
+    gradient: Number(gradientInput.value),
+    rotationSpeed: 0.0028
+  };
+
+  function updateForceArrows() {
+    const fieldMagnitude = Math.abs(state.gradient);
+    const focusingAxis = state.gradient >= 0 ? "x" : "y";
+    const arrowLength = 0.34 + fieldMagnitude * 0.0032;
+
+    forceArrows.forEach(({ axis, sign, arrow }) => {
+      const isFocusing = axis === focusingAxis;
+      const directionSign = isFocusing ? -sign : sign;
+      const direction = axis === "x"
+        ? new THREE.Vector3(directionSign, 0, 0)
+        : new THREE.Vector3(0, directionSign, 0);
+      arrow.setDirection(direction);
+      arrow.setLength(arrowLength, Math.min(0.18, arrowLength * 0.34), Math.min(0.12, arrowLength * 0.23));
+      arrow.setColor(new THREE.Color(isFocusing ? 0x238eff : 0xff9b45));
+    });
+
+    forceArrowGroup.visible = state.forces && fieldMagnitude > 0.5;
+  }
+
+  function refreshOpticsModel() {
+    updateEnvelopeGeometry(state.gradient);
+    updateForceArrows();
+
+    const outputSize = beamSizeAt(SCREEN_Z, state.gradient);
+    const gradientPrefix = state.gradient > 0 ? "+" : "";
+    gradientValueEl.textContent = `${gradientPrefix}${state.gradient}%`;
+    focusPlaneEl.textContent = state.gradient === 0
+      ? "Field off"
+      : state.gradient > 0
+        ? "Horizontal (X)"
+        : "Vertical (Y)";
+    inputShapeEl.textContent = `σx ${INPUT_SIGMA.toFixed(2)} · σy ${INPUT_SIGMA.toFixed(2)}`;
+    outputShapeEl.textContent = `σx ${outputSize.x.toFixed(2)} · σy ${outputSize.y.toFixed(2)}`;
+
+    fieldLines.visible = !state.opticsMode || Math.abs(state.gradient) > 0.5;
+    fieldMat.opacity = state.opticsMode
+      ? 0.08 + 0.34 * Math.abs(state.gradient) / 100
+      : 0.32;
+  }
+
+  function syncMode() {
+    opticsUi.forEach((element) => {
+      element.hidden = !state.opticsMode;
+    });
+
+    opticsBtn.dataset.active = String(state.opticsMode);
+    opticsBtn.textContent = `Beam optics: ${state.opticsMode ? "on" : "off"}`;
+    beamBtn.dataset.active = String(state.opticsMode ? state.particles : state.beamPulse);
+    beamBtn.textContent = state.opticsMode
+      ? `Particles: ${state.particles ? "on" : "off"}`
+      : `Beam pulse: ${state.beamPulse ? "on" : "off"}`;
+
+    pulseCarrier.visible = !state.opticsMode && state.beamPulse;
+    beamRoot.visible = state.opticsMode;
+    beamParticles.visible = state.particles;
+    beamEnvelope.visible = state.envelope;
+    beamAxis.visible = state.envelope;
+    diagnosticScreens.forEach((screen) => {
+      screen.group.visible = state.envelope;
+    });
+    referenceRing.visible = state.reference;
+    updateForceArrows();
+    refreshOpticsModel();
+  }
+
   spinBtn.addEventListener("click", () => {
     state.autoRotate = !state.autoRotate;
     spinBtn.dataset.active = String(state.autoRotate);
-    spinBtn.textContent = `Auto rotate: ${state.autoRotate ? "on" : "off"}`;
+    spinBtn.textContent = `Rotation: ${state.autoRotate ? "on" : "off"}`;
   });
+
   beamBtn.addEventListener("click", () => {
-    state.beamPulse = !state.beamPulse;
-    beamBtn.dataset.active = String(state.beamPulse);
-    beamBtn.textContent = `Beam pulse: ${state.beamPulse ? "on" : "off"}`;
-    pulseCarrier.visible = state.beamPulse;
+    if (state.opticsMode) {
+      state.particles = !state.particles;
+    } else {
+      state.beamPulse = !state.beamPulse;
+    }
+    syncMode();
   });
+
+  opticsBtn.addEventListener("click", () => {
+    state.opticsMode = !state.opticsMode;
+    syncMode();
+  });
+
+  envelopeBtn.addEventListener("click", () => {
+    state.envelope = !state.envelope;
+    envelopeBtn.dataset.active = String(state.envelope);
+    envelopeBtn.textContent = `Envelope: ${state.envelope ? "on" : "off"}`;
+    syncMode();
+  });
+
+  forcesBtn.addEventListener("click", () => {
+    state.forces = !state.forces;
+    forcesBtn.dataset.active = String(state.forces);
+    forcesBtn.textContent = `Forces: ${state.forces ? "on" : "off"}`;
+    syncMode();
+  });
+
+  referenceBtn.addEventListener("click", () => {
+    state.reference = !state.reference;
+    referenceBtn.dataset.active = String(state.reference);
+    referenceBtn.textContent = `Reference: ${state.reference ? "on" : "off"}`;
+    syncMode();
+  });
+
+  gradientInput.addEventListener("input", () => {
+    state.gradient = Number(gradientInput.value);
+    refreshOpticsModel();
+  });
+
+  updateEnvelopeGeometry(state.gradient);
+  updateParticlePositions(0, state.gradient);
+  syncMode();
 
   const clock = new THREE.Clock();
   let renderCount = 0;
@@ -1251,8 +1677,15 @@ async function startQuadrupoleDemo() {
   function animate() {
     const t = clock.getElapsedTime();
     if (state.autoRotate) magnetRoot.rotation.y += state.rotationSpeed;
-    fieldLines.rotation.z = Math.sin(t * 0.8) * 0.05;
-    if (state.beamPulse) {
+    const fieldDirection = state.gradient < 0 ? -1 : 1;
+    fieldLines.rotation.z = Math.sin(t * 0.8) * 0.05 * fieldDirection;
+
+    if (state.opticsMode) {
+      if (state.particles) {
+        updateParticlePositions(t, state.gradient);
+        particleMaterial.opacity = 0.94 + 0.04 * (0.5 + 0.5 * Math.sin(t * 5.5));
+      }
+    } else if (state.beamPulse) {
       const z = -3.8 + (t * 2.1 % 7.6);
       pulseCarrier.position.set(Math.sin(t * 1.5) * 0.03, Math.cos(t * 1.1) * 0.03, z);
       pulse.material.opacity = 0.86 + 0.12 * Math.sin(t * 7.0);
