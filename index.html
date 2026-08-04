@@ -258,10 +258,10 @@ section{padding:6rem 2.8rem;position:relative;}
 #quadrupole-demo{background:var(--bg);}
 .demo-panel{background:var(--card);border:1px solid var(--bd);border-radius:8px;padding:.8rem;box-shadow:0 14px 35px rgba(16,92,93,.14);}
 .q3d-shell{width:100%;margin:0;padding:0;display:block;}
-.q3d-widget{position:relative;width:100%;height:clamp(420px,64vh,700px);margin:0;border-radius:6px;overflow:hidden;border:1px solid rgba(255,255,255,.5);box-shadow:0 20px 35px rgba(18,85,84,.18),inset 0 1px 0 rgba(255,255,255,.9);background:radial-gradient(120% 160% at 8% 0%,rgba(255,255,255,.9),transparent 52%),radial-gradient(80% 90% at 100% 100%,rgba(113,205,129,.28),transparent 60%),linear-gradient(180deg,#f5fcfb,#e6f5ef);}
-#quad-scene{width:100%;height:100%;}
-.q3d-controls{position:absolute;right:14px;bottom:14px;display:flex;gap:8px;flex-wrap:wrap;justify-content:end;max-width:min(58vw,540px);}
-.q3d-controls button{border:1px solid rgba(34,48,63,.24);background:rgba(255,255,255,.9);color:#1f2b36;border-radius:999px;padding:8px 12px;font-size:12px;cursor:pointer;transition:transform .16s ease,background .16s ease;}
+.q3d-widget{--q3d-control-rail:154px;position:relative;width:100%;height:clamp(420px,64vh,700px);margin:0;border-radius:6px;overflow:hidden;border:1px solid rgba(255,255,255,.5);box-shadow:0 20px 35px rgba(18,85,84,.18),inset 0 1px 0 rgba(255,255,255,.9);background:radial-gradient(120% 160% at 8% 0%,rgba(255,255,255,.9),transparent 52%),radial-gradient(80% 90% at 100% 100%,rgba(113,205,129,.28),transparent 60%),linear-gradient(180deg,#f5fcfb,#e6f5ef);}
+#quad-scene{width:calc(100% - var(--q3d-control-rail));height:100%;}
+.q3d-controls{position:absolute;right:14px;bottom:14px;width:calc(var(--q3d-control-rail) - 28px);display:flex;flex-direction:column;align-items:stretch;gap:8px;}
+.q3d-controls button{width:100%;border:1px solid rgba(34,48,63,.24);background:rgba(255,255,255,.9);color:#1f2b36;border-radius:999px;padding:8px 12px;font-size:12px;white-space:nowrap;cursor:pointer;transition:transform .16s ease,background .16s ease;}
 .q3d-controls button:hover{transform:translateY(-1px);background:#ffffff;}
 .q3d-controls button[data-active="true"]{background:#1f2b36;color:#f7fbff;}
 .q3d-controls button.q3d-mode[data-active="true"]{background:#087d76;border-color:#087d76;color:#ffffff;box-shadow:0 0 0 3px rgba(45,197,181,.16);}
@@ -280,10 +280,11 @@ section{padding:6rem 2.8rem;position:relative;}
 .q3d-gradient input{display:block;width:100%;margin:0;accent-color:#159f92;cursor:pointer;}
 .q3d-scale{display:flex;justify-content:space-between;margin-top:4px;font-family:'Space Mono',monospace;font-size:8px;letter-spacing:.04em;color:#6d7b87;}
 @media(max-width:760px){
-  .q3d-readout{left:10px;top:10px;width:min(245px,calc(100% - 92px));}
-  .q3d-gradient{left:10px;right:10px;bottom:72px;width:auto;}
-  .q3d-controls{left:10px;right:10px;bottom:10px;max-width:none;justify-content:center;}
-  .q3d-controls button{padding:7px 9px;font-size:10px;}
+  .q3d-widget{--q3d-control-rail:120px;}
+  .q3d-readout{left:10px;top:10px;width:min(245px,calc(100% - var(--q3d-control-rail) - 20px));}
+  .q3d-gradient{left:10px;right:calc(var(--q3d-control-rail) + 10px);bottom:10px;width:auto;}
+  .q3d-controls{right:8px;bottom:8px;width:calc(var(--q3d-control-rail) - 16px);}
+  .q3d-controls button{padding:7px 6px;font-size:10px;}
 }
 
 /* SUPPLIERS */
@@ -1105,10 +1106,12 @@ async function startQuadrupoleDemo() {
 
   function updateCamera() {
     const cp = Math.cos(camPitch);
+    const frameScale = Math.max(1, 0.8 / Math.max(camera.aspect, 0.01));
+    const framedRadius = camRadius * frameScale;
     camera.position.set(
-      camRadius * cp * Math.sin(camYaw),
-      camRadius * Math.sin(camPitch),
-      camRadius * cp * Math.cos(camYaw)
+      framedRadius * cp * Math.sin(camYaw),
+      framedRadius * Math.sin(camPitch),
+      framedRadius * cp * Math.cos(camYaw)
     );
     camera.lookAt(camTarget);
   }
