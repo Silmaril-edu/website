@@ -254,9 +254,115 @@ section{padding:6rem 2.8rem;position:relative;}
   text-decoration:underline;
 }
 
+.tool-launch{
+  width:100%;
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+  font:inherit;
+  color:inherit;
+  text-align:left;
+}
+.tool-launch .tico,.tool-launch .tname,.tool-launch .tdesc{display:flex;}
+.tool-launch .tname,.tool-launch .tdesc{display:block;}
+.tool-launch .tbadge{margin-top:auto;}
+
+/* INTERACTIVE TOOL POPUPS */
+.tool-modal{
+  width:min(1420px,calc(100vw - 36px));
+  max-width:none;
+  max-height:calc(100vh - 36px);
+  margin:auto;
+  padding:0;
+  overflow:hidden;
+  border:1px solid rgba(62,186,162,.34);
+  border-radius:12px;
+  background:#ffffff;
+  color:var(--white);
+  box-shadow:0 30px 90px rgba(12,51,60,.34);
+}
+.tool-modal::backdrop{background:rgba(8,31,38,.66);backdrop-filter:blur(7px);}
+.tool-modal[open]{animation:toolModalIn .22s ease-out both;}
+@keyframes toolModalIn{from{opacity:0;transform:translateY(12px) scale(.985)}to{opacity:1;transform:none}}
+.tool-modal-head{
+  min-height:70px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:1rem;
+  padding:1rem 1.2rem;
+  border-bottom:1px solid var(--bd);
+  background:#ffffff;
+}
+.tool-modal-kicker{display:block;font-family:'Space Mono',monospace;font-size:.58rem;letter-spacing:.16em;text-transform:uppercase;color:var(--cyan);margin-bottom:.15rem;}
+.tool-modal-title{font-family:'Chakra Petch',monospace;font-size:1.15rem;font-weight:700;line-height:1.15;color:var(--white);}
+.tool-modal-close{
+  flex:0 0 auto;
+  width:38px;
+  height:38px;
+  border:1px solid rgba(20,51,65,.18);
+  border-radius:50%;
+  background:#f5fbf9;
+  color:var(--white);
+  cursor:pointer;
+  font:400 1.4rem/1 'Barlow',sans-serif;
+}
+.tool-modal-close:hover{border-color:var(--bd2);background:#eaf7f4;}
+.tool-modal-body{padding:.8rem;background:#eef8f5;overflow:auto;max-height:calc(100vh - 106px);}
+.tool-modal .q3d-widget{height:min(720px,calc(100vh - 132px));}
+body.tool-modal-open{overflow:hidden;}
+
+/* INTEGRATED LORENTZ FORCE */
+.lf-workspace{
+  --lf-ink:#1f2b36;
+  --lf-muted:#687984;
+  --lf-line:#c8e1da;
+  --lf-velocity:#20ad71;
+  --lf-field:#2389e8;
+  --lf-force:#df3f45;
+  display:grid;
+  grid-template-columns:minmax(0,1fr) 300px;
+  gap:10px;
+  height:min(720px,calc(100vh - 132px));
+  min-height:560px;
+  color:var(--lf-ink);
+  font-family:'Barlow',sans-serif;
+}
+.lf-scene-card,.lf-controls{border:1px solid rgba(79,126,119,.22);border-radius:8px;}
+.lf-scene-card{
+  position:relative;
+  min-width:0;
+  overflow:hidden;
+  background:radial-gradient(120% 160% at 8% 0%,rgba(255,255,255,.9),transparent 52%),radial-gradient(80% 90% at 100% 100%,rgba(113,205,129,.28),transparent 60%),linear-gradient(180deg,#f5fcfb,#e6f5ef);
+}
+#lorentz-scene{position:absolute;inset:0;}
+#lorentz-scene canvas{display:block;width:100%;height:100%;touch-action:none;cursor:grab;}
+#lorentz-scene canvas:active{cursor:grabbing;}
+.lf-load-status{position:absolute;right:14px;top:14px;padding:6px 9px;border:1px solid rgba(34,48,63,.17);border-radius:999px;background:rgba(255,248,224,.95);color:#71530e;font-size:10px;}
+.lf-load-status[data-state="error"]{background:#ffe8e8;color:#811b22;}
+.lf-controls{display:flex;flex-direction:column;min-width:0;padding:18px;background:rgba(249,253,252,.96);}
+.lf-controls h3{margin:0 0 5px;font-family:'Chakra Petch',sans-serif;font-size:17px;line-height:1.2;color:var(--lf-ink);}
+.lf-controls-intro{margin:0 0 18px;color:var(--lf-muted);font-size:11px;line-height:1.5;}
+.lf-control-block{padding:15px 0;border-top:1px solid var(--lf-line);}
+.lf-control-block:first-of-type{border-top:0;padding-top:0;}
+.lf-control-label{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:9px;color:#3a4a56;font-size:12px;font-weight:500;}
+.lf-control-label output{color:#117e76;font:600 10px/1 'Space Mono',monospace;}
+.lf-controls input[type="range"]{display:block;width:100%;margin:0;accent-color:#159f92;cursor:pointer;}
+.lf-range-scale{display:flex;justify-content:space-between;margin-top:4px;color:#8a979f;font:400 8px/1 'Space Mono',monospace;}
+.lf-charge-toggle{display:grid;grid-template-columns:1fr 1fr;gap:7px;}
+.lf-charge-toggle button{border:1px solid rgba(34,48,63,.2);border-radius:8px;padding:10px 8px;background:#fff;color:var(--lf-ink);cursor:pointer;font:600 14px/1 'Space Mono',monospace;}
+.lf-charge-toggle button[aria-pressed="true"]{background:#26343f;color:#fff;border-color:#26343f;}
+.lf-direction-note{margin:8px 0 0;color:#75848d;font-size:10px;line-height:1.45;}
+.lf-legend{display:grid;gap:8px;color:#53636f;font:400 10px/1.3 'Space Mono',monospace;}
+.lf-legend span{display:inline-flex;align-items:center;gap:6px;}
+.lf-legend i{display:inline-block;width:8px;height:8px;border-radius:50%;}
+.lf-rotation,.lf-reset{width:100%;border:1px solid rgba(34,48,63,.2);cursor:pointer;}
+.lf-rotation{border-radius:8px;padding:10px 12px;background:#fff;color:#50616c;font:600 10px/1 'Space Mono',monospace;}
+.lf-rotation[aria-pressed="true"]{background:#26343f;color:#fff;border-color:#26343f;}
+.lf-reset{margin-top:auto;border-radius:999px;padding:9px 12px;background:#fff;color:var(--lf-ink);font-size:11px;}
+.lf-rotation:hover,.lf-reset:hover{border-color:rgba(21,159,146,.55);}
+
 /* QUADRUPOLE DEMO */
-#quadrupole-demo{background:var(--bg);}
-.demo-panel{background:var(--card);border:1px solid var(--bd);border-radius:8px;padding:.8rem;box-shadow:0 14px 35px rgba(16,92,93,.14);}
 .q3d-shell{width:100%;margin:0;padding:0;display:block;}
 .q3d-widget{--q3d-control-rail:154px;position:relative;width:100%;height:clamp(420px,64vh,700px);margin:0;border-radius:6px;overflow:hidden;border:1px solid rgba(255,255,255,.5);box-shadow:0 20px 35px rgba(18,85,84,.18),inset 0 1px 0 rgba(255,255,255,.9);background:radial-gradient(120% 160% at 8% 0%,rgba(255,255,255,.9),transparent 52%),radial-gradient(80% 90% at 100% 100%,rgba(113,205,129,.28),transparent 60%),linear-gradient(180deg,#f5fcfb,#e6f5ef);}
 #quad-scene{width:calc(100% - var(--q3d-control-rail));height:100%;}
@@ -280,11 +386,20 @@ section{padding:6rem 2.8rem;position:relative;}
 .q3d-gradient input{display:block;width:100%;margin:0;accent-color:#159f92;cursor:pointer;}
 .q3d-scale{display:flex;justify-content:space-between;margin-top:4px;font-family:'Space Mono',monospace;font-size:8px;letter-spacing:.04em;color:#6d7b87;}
 @media(max-width:760px){
+  .tool-modal{width:calc(100vw - 16px);max-height:calc(100vh - 16px);}
+  .tool-modal-head{min-height:62px;padding:.8rem .9rem;}
+  .tool-modal-body{padding:.45rem;max-height:calc(100vh - 78px);}
+  .tool-modal .q3d-widget{height:calc(100vh - 88px);}
   .q3d-widget{--q3d-control-rail:120px;}
   .q3d-readout{left:10px;top:10px;width:min(245px,calc(100% - var(--q3d-control-rail) - 20px));}
   .q3d-gradient{left:10px;right:calc(var(--q3d-control-rail) + 10px);bottom:10px;width:auto;}
   .q3d-controls{right:8px;bottom:8px;width:calc(var(--q3d-control-rail) - 16px);}
   .q3d-controls button{padding:7px 6px;font-size:10px;}
+}
+@media(max-width:900px){
+  .lf-workspace{grid-template-columns:1fr;height:auto;min-height:0;}
+  .lf-scene-card{height:520px;}
+  .lf-controls{min-height:560px;}
 }
 
 /* SUPPLIERS */
@@ -393,13 +508,13 @@ footer{background:#e8f7f3;border-top:1px solid var(--bd);padding:4rem 2.8rem 2re
   </a>
   <ul class="nav-links">
     <li><a href="#about">About</a></li>
-    <li><a href="#tools">Tools</a></li>
+    <li><a href="tools.html">Tools</a></li>
     <li><a href="#suppliers">Industry</a></li>
     <li><a href="#team">Team</a></li>
     <li><a href="#careers">Careers</a></li>
     <li><a href="#opportunities">Opportunities</a></li>
-    <li><a href="#events">Events</a></li>
-    <li><a href="#news">News</a></li>
+    <li><a href="events.html">Events</a></li>
+    <li><a href="news.html">News</a></li>
     <li><a href="#footer">Contact</a></li>
   </ul>
   <button class="nav-btn" onclick="window.location.href='tools.html'">Explore Tools</button>
@@ -468,18 +583,47 @@ footer{background:#e8f7f3;border-top:1px solid var(--bd);padding:4rem 2.8rem 2re
           <a href="ASP2026-course.pdf" download>Download PDF</a>
         </div>
       </div>
+
+      <button class="tcard tool-launch fu" type="button" data-tool-dialog="quadrupoleToolModal" aria-haspopup="dialog">
+        <span class="tico" aria-hidden="true">
+          <svg viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="2.6"/>
+            <path d="M12 2v6M12 16v6M2 12h6M16 12h6"/>
+            <path d="M8 4l1.2 3M16 4l-1.2 3M8 20l1.2-3M16 20l-1.2-3"/>
+          </svg>
+        </span>
+        <span class="tname">Quadrupole</span>
+        <span class="tdesc">Explore the 3D magnet and its optional beam-optics focusing mode.</span>
+        <span class="tbadge">Open interactive tool</span>
+      </button>
+
+      <button class="tcard tool-launch fu" type="button" data-tool-dialog="lorentzToolModal" aria-haspopup="dialog">
+        <span class="tico" aria-hidden="true">
+          <svg viewBox="0 0 24 24">
+            <circle cx="8" cy="16" r="2.5"/>
+            <path d="M8 13.5V4M8 4l-2 2M8 4l2 2M10.5 16H20M20 16l-2-2M20 16l-2 2"/>
+            <path d="M10 14l7-7M17 7h-3M17 7v3"/>
+          </svg>
+        </span>
+        <span class="tname">Lorentz Force</span>
+        <span class="tdesc">Vary charge, velocity, and magnetic-field strength in an interactive 3D vector model.</span>
+        <span class="tbadge">Open interactive tool</span>
+      </button>
     </div>
 
     <a class="card-link" href="#">View all educational tools</a>
   </div>
 </section>
 
-<section id="quadrupole-demo">
-  <div class="sinner">
-    <div class="stag">Interactive Demo</div>
-    <div class="stitle">Quadrupole</div>
-    <p class="ssub">Explore the 3D quadrupole, then switch on the optional beam-optics mode to see its focusing effect.</p>
-    <div class="demo-panel fu">
+<dialog class="tool-modal" id="quadrupoleToolModal" aria-labelledby="quadrupoleToolTitle">
+  <div class="tool-modal-head">
+    <div>
+      <span class="tool-modal-kicker">Interactive tool</span>
+      <h2 class="tool-modal-title" id="quadrupoleToolTitle">Quadrupole</h2>
+    </div>
+    <button class="tool-modal-close" type="button" data-close-tool aria-label="Close Quadrupole">×</button>
+  </div>
+  <div class="tool-modal-body">
       <div class="q3d-shell">
         <div class="q3d-widget" aria-label="Interactive 3D quadrupole model">
           <div id="quad-scene"></div>
@@ -505,9 +649,67 @@ footer{background:#e8f7f3;border-top:1px solid var(--bd);padding:4rem 2.8rem 2re
           <div class="q3d-status" id="quadLoadStatus" data-state="loading">Loading 3D...</div>
         </div>
       </div>
+  </div>
+</dialog>
+
+<dialog class="tool-modal" id="lorentzToolModal" aria-labelledby="lorentzToolTitle">
+  <div class="tool-modal-head">
+    <div>
+      <span class="tool-modal-kicker">Interactive tool</span>
+      <h2 class="tool-modal-title" id="lorentzToolTitle">Lorentz Force</h2>
+    </div>
+    <button class="tool-modal-close" type="button" data-close-tool aria-label="Close Lorentz Force">×</button>
+  </div>
+  <div class="tool-modal-body">
+    <div class="lf-workspace">
+      <div class="lf-scene-card" aria-label="Interactive three-dimensional magnetic Lorentz force model">
+        <div id="lorentz-scene"></div>
+        <div class="lf-load-status" id="lorentzLoadStatus" data-state="loading">Loading 3D…</div>
+      </div>
+
+      <aside class="lf-controls" aria-label="Lorentz force controls">
+        <h3>Controls</h3>
+        <p class="lf-controls-intro">The directions of v and B are fixed at 90° so the force magnitude is |q|vB.</p>
+
+        <div class="lf-control-block">
+          <div class="lf-control-label"><span>Charge, q</span><output id="lfChargeOutput">+e</output></div>
+          <div class="lf-charge-toggle" role="group" aria-label="Charge sign">
+            <button id="lfPositiveCharge" type="button" aria-pressed="true">+e</button>
+            <button id="lfNegativeCharge" type="button" aria-pressed="false">−e</button>
+          </div>
+          <p class="lf-direction-note">Changing the sign reverses the red force vector.</p>
+        </div>
+
+        <div class="lf-control-block">
+          <label class="lf-control-label" for="lfSpeedSlider"><span>Speed, v</span><output id="lfSpeedValue">6.0 × 10⁶ m/s</output></label>
+          <input id="lfSpeedSlider" type="range" min="0" max="10" step="0.1" value="6">
+          <div class="lf-range-scale"><span>0</span><span>10 × 10⁶ m/s</span></div>
+        </div>
+
+        <div class="lf-control-block">
+          <label class="lf-control-label" for="lfFieldSlider"><span>Magnetic field, B</span><output id="lfFieldValue">2.00 T</output></label>
+          <input id="lfFieldSlider" type="range" min="0" max="5" step="0.05" value="2">
+          <div class="lf-range-scale"><span>0 T</span><span>5 T</span></div>
+        </div>
+
+        <div class="lf-control-block" aria-label="Vector colour key">
+          <div class="lf-control-label"><span>Vector legend</span></div>
+          <div class="lf-legend">
+            <span><i style="background:var(--lf-velocity)"></i>velocity, v</span>
+            <span><i style="background:var(--lf-field)"></i>magnetic field, B</span>
+            <span><i style="background:var(--lf-force)"></i>force, F</span>
+          </div>
+        </div>
+
+        <div class="lf-control-block">
+          <button class="lf-rotation" id="lfToggleRotation" type="button" aria-pressed="true">Auto rotate: on</button>
+        </div>
+
+        <button class="lf-reset" id="lfResetButton" type="button">Reset values</button>
+      </aside>
     </div>
   </div>
-</section>
+</dialog>
 
 <section id="team">
   <div class="sinner">
@@ -603,7 +805,7 @@ footer{background:#e8f7f3;border-top:1px solid var(--bd);padding:4rem 2.8rem 2re
         <div class="news-meta">May 2026</div>
         <h3 class="news-title">SimuLearn won 1st prize at the IPAC2026 hackathon</h3>
         <p class="news-copy">Project E was developed and presented at the IUPAP WG-13 Hackathon during the 17th International Particle Accelerator Conference (IPAC2026) in Deauville, France, where it won first place.</p>
-        <a class="card-link" href="https://lightsources.org/2026/07/10/from-light-sources-to-innovation-ecosystems-the-first-iupap-hackathonino-at-ipac2026/">Read News</a>
+        <a class="card-link" href="#">Read News</a>
       </article>
     </div>
   </div>
@@ -1026,6 +1228,32 @@ const obs=new IntersectionObserver((entries)=>{
   });
 },{threshold:0.12});
 document.querySelectorAll('.fu').forEach(el=>obs.observe(el));
+
+document.querySelectorAll('[data-tool-dialog]').forEach((launcher)=>{
+  launcher.addEventListener('click',()=>{
+    const dialog=document.getElementById(launcher.dataset.toolDialog);
+    if(!dialog || typeof dialog.showModal!=='function') return;
+    dialog.showModal();
+    document.body.classList.add('tool-modal-open');
+
+    requestAnimationFrame(()=>{
+      dialog.dispatchEvent(new Event('toolmodalopen'));
+    });
+  });
+});
+
+document.querySelectorAll('.tool-modal').forEach((dialog)=>{
+  dialog.querySelector('[data-close-tool]')?.addEventListener('click',()=>dialog.close());
+  dialog.addEventListener('click',(event)=>{
+    if(event.target!==dialog) return;
+    const bounds=dialog.getBoundingClientRect();
+    const outside=event.clientX<bounds.left || event.clientX>bounds.right || event.clientY<bounds.top || event.clientY>bounds.bottom;
+    if(outside) dialog.close();
+  });
+  dialog.addEventListener('close',()=>{
+    if(!document.querySelector('.tool-modal[open]')) document.body.classList.remove('tool-modal-open');
+  });
+});
 </script>
 <script type="module">
 async function startQuadrupoleDemo() {
@@ -1707,7 +1935,458 @@ async function startQuadrupoleDemo() {
   animate();
 }
 
-startQuadrupoleDemo();
+let quadrupoleStarted = false;
+const quadrupoleDialog = document.getElementById("quadrupoleToolModal");
+quadrupoleDialog?.addEventListener("toolmodalopen", () => {
+  if (!quadrupoleStarted) {
+    quadrupoleStarted = true;
+    startQuadrupoleDemo();
+    return;
+  }
+  requestAnimationFrame(() => window.dispatchEvent(new Event("resize")));
+});
+</script>
+<script type="module">
+async function startIntegratedLorentzModel() {
+  const mount = document.getElementById("lorentz-scene");
+  const statusEl = document.getElementById("lorentzLoadStatus");
+  if (!mount || !statusEl) return;
+
+  function setStatus(text, state) {
+    statusEl.textContent = text;
+    statusEl.dataset.state = state;
+  }
+
+  let THREE;
+  try {
+    const candidates = [
+      "https://cdn.jsdelivr.net/npm/three@0.165.0/build/three.module.js",
+      "https://unpkg.com/three@0.165.0/build/three.module.js",
+      "https://esm.sh/three@0.165.0"
+    ];
+    let lastError = null;
+    for (const url of candidates) {
+      try {
+        THREE = await import(url);
+        break;
+      } catch (error) {
+        lastError = error;
+      }
+    }
+    if (!THREE) throw lastError || new Error("Three.js could not be loaded");
+  } catch (error) {
+    setStatus("3D load failed", "error");
+    mount.innerHTML = '<div style="display:grid;place-items:center;height:100%;padding:24px;text-align:center;color:#273641"><div><strong style="display:block;margin-bottom:7px">The 3D module could not load.</strong>Connect to the internet and reload this page.</div></div>';
+    return;
+  }
+
+  const glTest = document.createElement("canvas");
+  if (!(glTest.getContext("webgl") || glTest.getContext("experimental-webgl"))) {
+    setStatus("WebGL unavailable", "error");
+    return;
+  }
+
+  const elements = {
+    positive: document.getElementById("lfPositiveCharge"),
+    negative: document.getElementById("lfNegativeCharge"),
+    speed: document.getElementById("lfSpeedSlider"),
+    field: document.getElementById("lfFieldSlider"),
+    reset: document.getElementById("lfResetButton"),
+    rotation: document.getElementById("lfToggleRotation"),
+    chargeOutput: document.getElementById("lfChargeOutput"),
+    speedValue: document.getElementById("lfSpeedValue"),
+    fieldValue: document.getElementById("lfFieldValue")
+  };
+
+  const defaults = { chargeSign: 1, speed: 6, field: 2, autoRotate: true };
+  const state = { ...defaults };
+  const ELEMENTARY_CHARGE = 1.602176634e-19;
+  const MAX_FORCE_PN = ELEMENTARY_CHARGE * 10e6 * 5 * 1e12;
+
+  const scene = new THREE.Scene();
+  scene.fog = new THREE.Fog(0xe5f1ed, 10, 20);
+
+  const camera = new THREE.PerspectiveCamera(39, 1, 0.1, 100);
+  let cameraYaw = 0.76;
+  let cameraPitch = 0.43;
+  let cameraRadius = 6.1;
+  const cameraTarget = new THREE.Vector3(0, 0, 0);
+
+  const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+  renderer.outputColorSpace = THREE.SRGBColorSpace;
+  renderer.toneMapping = THREE.ACESFilmicToneMapping;
+  renderer.toneMappingExposure = 1.1;
+  mount.appendChild(renderer.domElement);
+
+  scene.add(new THREE.HemisphereLight(0xffffff, 0x8caea8, 1.45));
+  const keyLight = new THREE.DirectionalLight(0xffffff, 2.2);
+  keyLight.position.set(5, 7, 8);
+  scene.add(keyLight);
+  const rimLight = new THREE.DirectionalLight(0x8fbfff, 0.9);
+  rimLight.position.set(-5, 2, -5);
+  scene.add(rimLight);
+
+  const modelRoot = new THREE.Group();
+  scene.add(modelRoot);
+
+  const fieldBoundary = new THREE.LineSegments(
+    new THREE.EdgesGeometry(new THREE.BoxGeometry(3.8, 2.8, 2.6)),
+    new THREE.LineBasicMaterial({ color: 0x2389e8, transparent: true, opacity: 0.14 })
+  );
+  modelRoot.add(fieldBoundary);
+
+  const particleMaterial = new THREE.MeshStandardMaterial({
+    color: 0xe0a03a,
+    metalness: 0.58,
+    roughness: 0.2,
+    emissive: 0x351a08,
+    emissiveIntensity: 0.22
+  });
+  const particle = new THREE.Mesh(new THREE.SphereGeometry(0.2, 48, 48), particleMaterial);
+  modelRoot.add(particle);
+
+  const particleHalo = new THREE.Mesh(
+    new THREE.SphereGeometry(0.29, 36, 36),
+    new THREE.MeshBasicMaterial({ color: 0xffc56d, transparent: true, opacity: 0.13, depthWrite: false })
+  );
+  modelRoot.add(particleHalo);
+
+  function createLabel(text, color) {
+    const canvas = document.createElement("canvas");
+    canvas.width = 480;
+    canvas.height = 128;
+    const context = canvas.getContext("2d");
+    const texture = new THREE.CanvasTexture(canvas);
+    texture.colorSpace = THREE.SRGBColorSpace;
+    const value = Number.parseInt(color.replace("#", ""), 16);
+    const r = value >> 16;
+    const g = (value >> 8) & 255;
+    const b = value & 255;
+    context.beginPath();
+    context.roundRect(6, 10, canvas.width - 12, canvas.height - 20, 24);
+    context.fillStyle = "rgba(255,255,255,.92)";
+    context.fill();
+    context.lineWidth = 4;
+    context.strokeStyle = `rgba(${r},${g},${b},.85)`;
+    context.stroke();
+    context.fillStyle = "#22303b";
+    context.font = '600 36px "Space Mono", monospace';
+    context.textAlign = "center";
+    context.textBaseline = "middle";
+    context.fillText(text, canvas.width / 2, canvas.height / 2 + 1);
+    texture.needsUpdate = true;
+    const sprite = new THREE.Sprite(new THREE.SpriteMaterial({ map: texture, transparent: true, depthTest: false, depthWrite: false }));
+    sprite.scale.set(0.75, 0.2, 1);
+    sprite.renderOrder = 40;
+    sprite.visible = false;
+    sprite.userData.labelText = text;
+    return sprite;
+  }
+
+  function createMainArrow(color, labelText, radius = 0.03) {
+    const group = new THREE.Group();
+    const material = new THREE.MeshStandardMaterial({ color, metalness: 0.35, roughness: 0.28 });
+    const shaft = new THREE.Mesh(new THREE.CylinderGeometry(radius, radius, 1, 24), material);
+    const head = new THREE.Mesh(new THREE.ConeGeometry(radius * 3.2, 1, 28), material);
+    const label = createLabel(labelText, `#${color.toString(16).padStart(6, "0")}`);
+    shaft.userData.hoverLabel = label;
+    head.userData.hoverLabel = label;
+    group.add(shaft, head, label);
+    modelRoot.add(group);
+    return { group, shaft, head, label };
+  }
+
+  const velocityArrow = createMainArrow(0x20ad71, "v", 0.029);
+  const forceArrow = createMainArrow(0xdf3f45, "F", 0.034);
+  const up = new THREE.Vector3(0, 1, 0);
+  const arrowQuaternion = new THREE.Quaternion();
+
+  function setArrow(arrow, direction, length, visible = true, offset = new THREE.Vector3()) {
+    arrow.group.visible = visible;
+    if (!visible) return;
+    const unit = direction.clone().normalize();
+    const headLength = Math.min(0.27, Math.max(0.17, length * 0.21));
+    const shaftLength = Math.max(0.03, length - headLength);
+    arrowQuaternion.setFromUnitVectors(up, unit);
+    arrow.shaft.quaternion.copy(arrowQuaternion);
+    arrow.shaft.scale.set(1, shaftLength, 1);
+    arrow.shaft.position.copy(unit).multiplyScalar(shaftLength / 2);
+    arrow.head.quaternion.copy(arrowQuaternion);
+    arrow.head.scale.set(1, headLength, 1);
+    arrow.head.position.copy(unit).multiplyScalar(shaftLength + headLength / 2);
+    arrow.label.position.copy(unit).multiplyScalar(length + 0.2).add(offset);
+  }
+
+  const fieldPositions = [];
+  [-1.5, -0.75, 0, 0.75, 1.5].forEach((x) => {
+    [-1, -0.5, 0, 0.5, 1].forEach((y) => {
+      [-0.78, 0, 0.78].forEach((z) => {
+        if (Math.abs(x) < 0.2 && Math.abs(y) < 0.2 && Math.abs(z) < 0.2) return;
+        fieldPositions.push(new THREE.Vector3(x, y, z));
+      });
+    });
+  });
+
+  const fieldMaterial = new THREE.MeshBasicMaterial({ color: 0x2389e8, transparent: true, opacity: 0.2, depthWrite: false });
+  const fieldShafts = new THREE.InstancedMesh(new THREE.CylinderGeometry(0.006, 0.006, 1, 8), fieldMaterial, fieldPositions.length);
+  const fieldHeads = new THREE.InstancedMesh(new THREE.ConeGeometry(0.021, 1, 10), fieldMaterial, fieldPositions.length);
+  fieldShafts.instanceMatrix.setUsage(THREE.DynamicDrawUsage);
+  fieldHeads.instanceMatrix.setUsage(THREE.DynamicDrawUsage);
+  fieldShafts.frustumCulled = false;
+  fieldHeads.frustumCulled = false;
+  modelRoot.add(fieldShafts, fieldHeads);
+
+  const fieldHoverLabel = createLabel("B", "#2389e8");
+  modelRoot.add(fieldHoverLabel);
+
+  const fieldDirection = new THREE.Vector3(0, 0, 1);
+  const velocityDirection = new THREE.Vector3(1, 0, 0);
+  const fieldQuaternion = new THREE.Quaternion().setFromUnitVectors(up, fieldDirection);
+  const instanceMatrix = new THREE.Matrix4();
+  const instancePosition = new THREE.Vector3();
+  const instanceScale = new THREE.Vector3();
+  const fieldVisibleEnds = new Float32Array(fieldPositions.length);
+
+  function smoothstep(start, end, value) {
+    const amount = THREE.MathUtils.clamp((value - start) / (end - start), 0, 1);
+    return amount * amount * (3 - 2 * amount);
+  }
+
+  function updateFieldArrows(elapsed = 0) {
+    const fieldFraction = state.field / 5;
+    const totalLength = 0.62 * fieldFraction;
+    const maximumHeadLength = 0.14 * fieldFraction;
+    mount.dataset.fieldArrowLength = totalLength.toFixed(3);
+
+    fieldPositions.forEach((position, index) => {
+      const layerProgress = (position.z + 0.78) / 1.56;
+      const phase = ((elapsed * 0.58 - layerProgress * 0.14) % 1 + 1) % 1;
+      const front = smoothstep(0.02, 0.38, phase);
+      const tail = smoothstep(0.46, 0.82, phase);
+      const segmentStart = totalLength * tail;
+      const segmentEnd = totalLength * front;
+      const visibleLength = Math.max(0, segmentEnd - segmentStart);
+      const headLength = Math.min(maximumHeadLength, visibleLength);
+      const shaftLength = Math.max(0, visibleLength - headLength);
+      fieldVisibleEnds[index] = segmentEnd;
+
+      instancePosition.copy(position).addScaledVector(fieldDirection, segmentStart + shaftLength / 2);
+      instanceScale.set(1, Math.max(shaftLength, 0.0001), 1);
+      instanceMatrix.compose(instancePosition, fieldQuaternion, instanceScale);
+      fieldShafts.setMatrixAt(index, instanceMatrix);
+
+      instancePosition.copy(position).addScaledVector(fieldDirection, segmentStart + shaftLength + headLength / 2);
+      instanceScale.set(1, Math.max(headLength, 0.0001), 1);
+      instanceMatrix.compose(instancePosition, fieldQuaternion, instanceScale);
+      fieldHeads.setMatrixAt(index, instanceMatrix);
+      if (index === 0) mount.dataset.fieldPulse = totalLength > 0 ? (visibleLength / totalLength).toFixed(3) : "0.000";
+    });
+
+    fieldShafts.instanceMatrix.needsUpdate = true;
+    fieldHeads.instanceMatrix.needsUpdate = true;
+    fieldMaterial.opacity = 0.1 + 0.25 * fieldFraction;
+    fieldShafts.visible = state.field > 0;
+    fieldHeads.visible = state.field > 0;
+    fieldBoundary.material.opacity = state.field > 0 ? 0.08 + 0.12 * fieldFraction : 0.035;
+  }
+
+  const hoverLabels = [velocityArrow.label, forceArrow.label, fieldHoverLabel];
+  function hideHoverLabels() {
+    hoverLabels.forEach((label) => { label.visible = false; });
+    mount.dataset.hoverLabel = "none";
+  }
+
+  function updateModel() {
+    const forceNewtons = ELEMENTARY_CHARGE * state.speed * 1e6 * state.field;
+    const forceFraction = forceNewtons * 1e12 / MAX_FORCE_PN;
+    const forceDirection = new THREE.Vector3().crossVectors(velocityDirection, fieldDirection).multiplyScalar(state.chargeSign).normalize();
+    const speedVisible = state.speed > 0;
+    const forceVisible = speedVisible && state.field > 0;
+    const speedLength = 0.58 + 0.76 * state.speed / 10;
+    const forceLength = 0.24 + 1.5 * forceFraction;
+    mount.dataset.forceLength = forceVisible ? forceLength.toFixed(3) : "0.000";
+    mount.dataset.chargeSign = String(state.chargeSign);
+
+    setArrow(velocityArrow, velocityDirection, speedLength, speedVisible, new THREE.Vector3(0, 0.12, 0));
+    setArrow(forceArrow, forceDirection, forceLength, forceVisible, new THREE.Vector3(0.17, 0, 0));
+
+    const positive = state.chargeSign > 0;
+    particleMaterial.color.setHex(positive ? 0xe0a03a : 0x5968c5);
+    particleMaterial.emissive.setHex(positive ? 0x351a08 : 0x121632);
+    particleHalo.material.color.setHex(positive ? 0xffc56d : 0x9caaff);
+    elements.positive.setAttribute("aria-pressed", String(positive));
+    elements.negative.setAttribute("aria-pressed", String(!positive));
+    elements.chargeOutput.textContent = positive ? "+e" : "−e";
+    elements.speedValue.textContent = `${state.speed.toFixed(1)} × 10⁶ m/s`;
+    elements.fieldValue.textContent = `${state.field.toFixed(2)} T`;
+    hideHoverLabels();
+    updateFieldArrows();
+  }
+
+  elements.positive.addEventListener("click", () => { state.chargeSign = 1; updateModel(); });
+  elements.negative.addEventListener("click", () => { state.chargeSign = -1; updateModel(); });
+  elements.speed.addEventListener("input", () => { state.speed = Number(elements.speed.value); updateModel(); });
+  elements.field.addEventListener("input", () => { state.field = Number(elements.field.value); updateModel(); });
+
+  function updateRotationControl() {
+    elements.rotation.setAttribute("aria-pressed", String(state.autoRotate));
+    elements.rotation.textContent = `Auto rotate: ${state.autoRotate ? "on" : "off"}`;
+  }
+  elements.rotation.addEventListener("click", () => { state.autoRotate = !state.autoRotate; updateRotationControl(); });
+
+  elements.reset.addEventListener("click", () => {
+    Object.assign(state, defaults);
+    elements.speed.value = state.speed;
+    elements.field.value = state.field;
+    cameraYaw = 0.76;
+    cameraPitch = 0.43;
+    cameraRadius = 6.1;
+    modelRoot.rotation.set(0, 0, 0);
+    updateRotationControl();
+    updateModel();
+    updateCamera();
+  });
+
+  let dragging = false;
+  let pointerX = 0;
+  let pointerY = 0;
+  let pointerInside = false;
+  let pointerClientX = 0;
+  let pointerClientY = 0;
+  const raycaster = new THREE.Raycaster();
+  const pointer = new THREE.Vector2();
+  const hoverTargets = [
+    velocityArrow.shaft, velocityArrow.head,
+    forceArrow.shaft, forceArrow.head,
+    fieldShafts, fieldHeads
+  ];
+
+  function updateHoveredArrow(event) {
+    pointerClientX = event.clientX;
+    pointerClientY = event.clientY;
+    const bounds = renderer.domElement.getBoundingClientRect();
+    pointer.x = ((event.clientX - bounds.left) / bounds.width) * 2 - 1;
+    pointer.y = -((event.clientY - bounds.top) / bounds.height) * 2 + 1;
+    modelRoot.updateMatrixWorld(true);
+    raycaster.setFromCamera(pointer, camera);
+    const hit = raycaster.intersectObjects(hoverTargets, false)[0];
+    hideHoverLabels();
+
+    if (!hit) {
+      renderer.domElement.style.cursor = "grab";
+      return;
+    }
+    if (hit.object === fieldShafts || hit.object === fieldHeads) {
+      const index = hit.instanceId;
+      if (Number.isInteger(index)) {
+        fieldHoverLabel.position.copy(fieldPositions[index])
+          .addScaledVector(fieldDirection, fieldVisibleEnds[index] + 0.14)
+          .add(new THREE.Vector3(0.1, 0.08, 0));
+        fieldHoverLabel.visible = true;
+        mount.dataset.hoverLabel = "B";
+      }
+    } else if (hit.object.userData.hoverLabel) {
+      hit.object.userData.hoverLabel.visible = true;
+      mount.dataset.hoverLabel = hit.object.userData.hoverLabel.userData.labelText;
+    }
+    renderer.domElement.style.cursor = "pointer";
+  }
+
+  renderer.domElement.addEventListener("pointerdown", (event) => {
+    dragging = true;
+    pointerInside = true;
+    hideHoverLabels();
+    pointerX = event.clientX;
+    pointerY = event.clientY;
+    renderer.domElement.style.cursor = "grabbing";
+    if (Number.isInteger(event.pointerId)) renderer.domElement.setPointerCapture?.(event.pointerId);
+  });
+  renderer.domElement.addEventListener("pointermove", (event) => {
+    pointerInside = true;
+    if (!dragging) {
+      updateHoveredArrow(event);
+      return;
+    }
+    const dx = event.clientX - pointerX;
+    const dy = event.clientY - pointerY;
+    pointerX = event.clientX;
+    pointerY = event.clientY;
+    modelRoot.rotation.y += dx * 0.006;
+    modelRoot.rotation.x = THREE.MathUtils.clamp(modelRoot.rotation.x + dy * 0.0045, -0.78, 0.78);
+  });
+  renderer.domElement.addEventListener("pointerup", (event) => {
+    dragging = false;
+    renderer.domElement.style.cursor = "grab";
+    updateHoveredArrow(event);
+  });
+  renderer.domElement.addEventListener("pointercancel", () => {
+    dragging = false;
+    renderer.domElement.style.cursor = "grab";
+    hideHoverLabels();
+  });
+  renderer.domElement.addEventListener("pointerleave", () => {
+    pointerInside = false;
+    if (!dragging) hideHoverLabels();
+  });
+  renderer.domElement.addEventListener("wheel", (event) => {
+    cameraRadius = THREE.MathUtils.clamp(cameraRadius + event.deltaY * 0.008, 4, 11);
+    updateCamera();
+    event.preventDefault();
+  }, { passive: false });
+
+  function updateCamera() {
+    const cp = Math.cos(cameraPitch);
+    camera.position.set(
+      cameraRadius * cp * Math.sin(cameraYaw),
+      cameraRadius * Math.sin(cameraPitch),
+      cameraRadius * cp * Math.cos(cameraYaw)
+    );
+    camera.lookAt(cameraTarget);
+  }
+
+  function resize() {
+    const width = Math.max(1, mount.clientWidth);
+    const height = Math.max(1, mount.clientHeight);
+    camera.aspect = width / height;
+    camera.updateProjectionMatrix();
+    renderer.setSize(width, height);
+  }
+  window.addEventListener("resize", resize);
+
+  updateModel();
+  updateRotationControl();
+  resize();
+  updateCamera();
+
+  const clock = new THREE.Clock();
+  let renderedFrames = 0;
+  function animate() {
+    const delta = Math.min(clock.getDelta(), 0.05);
+    const elapsed = clock.elapsedTime;
+    if (state.autoRotate && !dragging) modelRoot.rotation.y += delta * 0.19;
+    updateFieldArrows(elapsed);
+    if (pointerInside && !dragging) updateHoveredArrow({ clientX: pointerClientX, clientY: pointerClientY });
+    particleHalo.scale.setScalar(1 + 0.05 * Math.sin(elapsed * 2.5));
+    mount.dataset.cellRotationY = modelRoot.rotation.y.toFixed(3);
+    renderer.render(scene, camera);
+    renderedFrames += 1;
+    if (renderedFrames === 2) statusEl.style.display = "none";
+    requestAnimationFrame(animate);
+  }
+  animate();
+}
+
+let integratedLorentzStarted = false;
+const lorentzDialog = document.getElementById("lorentzToolModal");
+lorentzDialog?.addEventListener("toolmodalopen", () => {
+  if (!integratedLorentzStarted) {
+    integratedLorentzStarted = true;
+    startIntegratedLorentzModel();
+    return;
+  }
+  requestAnimationFrame(() => window.dispatchEvent(new Event("resize")));
+});
 </script>
 <script>
 window.addEventListener("load", () => {
