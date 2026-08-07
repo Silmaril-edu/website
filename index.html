@@ -376,6 +376,14 @@ body.tool-modal-open{overflow:hidden;}
 .q3d-status[data-state="loading"]{background:rgba(255,246,225,.95);color:#6f5111;}
 .q3d-status[data-state="ok"]{background:rgba(224,255,239,.95);color:#0a5e35;}
 .q3d-status[data-state="error"]{background:rgba(255,228,228,.95);color:#7a1821;}
+.q3d-polarity-tip{position:absolute;z-index:8;display:flex;align-items:center;gap:8px;min-width:142px;padding:7px 9px;border:1px solid rgba(255,255,255,.62);border-radius:8px;background:linear-gradient(135deg,rgba(17,28,39,.94),rgba(35,51,64,.88));color:#f7fbff;box-shadow:0 8px 24px rgba(12,30,42,.26),inset 0 1px 0 rgba(255,255,255,.16);backdrop-filter:blur(10px);pointer-events:none;opacity:0;visibility:hidden;transform:translate(8px,8px) scale(.96);transform-origin:top left;transition:opacity .12s ease,transform .12s ease,visibility .12s ease;}
+.q3d-polarity-tip[data-visible="true"]{opacity:1;visibility:visible;transform:translate(8px,8px) scale(1);}
+.q3d-polarity-tip::before{content:'';flex:0 0 auto;width:9px;height:9px;border-radius:50%;background:#788792;box-shadow:0 0 12px rgba(120,135,146,.72);}
+.q3d-polarity-tip[data-polarity="north"]::before{background:#ff5969;box-shadow:0 0 13px rgba(255,89,105,.9);}
+.q3d-polarity-tip[data-polarity="south"]::before{background:#4ca8ff;box-shadow:0 0 13px rgba(76,168,255,.9);}
+.q3d-polarity-copy{display:grid;gap:1px;line-height:1.15;}
+.q3d-polarity-copy strong{font:600 10px/1.2 'Space Mono',monospace;letter-spacing:.08em;}
+.q3d-polarity-copy span{font-size:9px;color:rgba(232,242,249,.72);white-space:nowrap;}
 .q3d-readout{position:absolute;left:14px;top:14px;width:min(270px,calc(100% - 110px));padding:12px 14px;border:1px solid rgba(34,48,63,.18);border-radius:9px;background:rgba(255,255,255,.86);color:#243241;box-shadow:0 10px 26px rgba(22,70,75,.12);backdrop-filter:blur(8px);pointer-events:none;}
 .q3d-kicker{display:block;margin-bottom:8px;font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.13em;text-transform:uppercase;color:#138f84;}
 .q3d-metric{display:flex;align-items:baseline;justify-content:space-between;gap:12px;padding:3px 0;font-size:11px;color:#5a6875;}
@@ -627,6 +635,12 @@ footer{background:#e8f7f3;border-top:1px solid var(--bd);padding:4rem 2.8rem 2re
       <div class="q3d-shell">
         <div class="q3d-widget" aria-label="Interactive 3D quadrupole model">
           <div id="quad-scene"></div>
+          <div class="q3d-polarity-tip" id="quadPolarityTip" data-visible="false" data-polarity="north" role="tooltip" aria-hidden="true">
+            <div class="q3d-polarity-copy">
+              <strong id="quadPolarityName">NORTH POLE</strong>
+              <span id="quadPolarityDetail">Field lines emerge</span>
+            </div>
+          </div>
           <div class="q3d-readout q3d-optics-ui" aria-live="polite" hidden>
             <span class="q3d-kicker">Live beam optics</span>
             <div class="q3d-metric"><span>Focusing plane</span><strong id="quadFocusPlane">Horizontal (X)</strong></div>
@@ -1273,6 +1287,10 @@ async function startQuadrupoleDemo() {
   const outputShapeEl = document.getElementById("quadOutputShape");
   const opticsUi = Array.from(document.querySelectorAll(".q3d-optics-ui"));
   const statusEl = document.getElementById("quadLoadStatus");
+  const polarityTip = document.getElementById("quadPolarityTip");
+  const polarityNameEl = document.getElementById("quadPolarityName");
+  const polarityDetailEl = document.getElementById("quadPolarityDetail");
+  const quadWidget = mount.closest(".q3d-widget");
 
   function setStatus(text, state) {
     statusEl.textContent = text;
@@ -1421,12 +1439,15 @@ async function startQuadrupoleDemo() {
   yokeGeo.center();
   magnetRoot.add(new THREE.Mesh(yokeGeo, yokeMat));
 
-  function createPoleAssembly(angle) {
+  const polarityTargets = [];
+  function createPoleAssembly(angle, poleIndex) {
     const poleGroup = new THREE.Group();
     const dir = new THREE.Vector3(-Math.cos(angle), -Math.sin(angle), 0).normalize();
     const q = new THREE.Quaternion().setFromUnitVectors(new THREE.Vector3(0, 1, 0), dir);
 
     const polePiece = new THREE.Mesh(new THREE.CylinderGeometry(0.42, 0.58, 2.05, 28), poleMat);
+    polePiece.userData.quadPoleIndex = poleIndex;
+    polarityTargets.push(polePiece);
     polePiece.quaternion.copy(q);
     polePiece.position.set(Math.cos(angle) * 1.96, Math.sin(angle) * 1.96, 0);
     poleGroup.add(polePiece);
@@ -1434,6 +1455,8 @@ async function startQuadrupoleDemo() {
     const windings = new THREE.Group();
     for (let i = 0; i < 11; i += 1) {
       const ring = new THREE.Mesh(new THREE.TorusGeometry(0.54, 0.043, 13, 36), copperMat);
+      ring.userData.quadPoleIndex = poleIndex;
+      polarityTargets.push(ring);
       ring.rotation.x = Math.PI / 2;
       ring.position.y = -0.86 + i * 0.172;
       windings.add(ring);
@@ -1445,7 +1468,7 @@ async function startQuadrupoleDemo() {
   }
 
   const poleAngles = [Math.PI / 4, (3 * Math.PI) / 4, (5 * Math.PI) / 4, (7 * Math.PI) / 4];
-  poleAngles.forEach((angle) => magnetRoot.add(createPoleAssembly(angle)));
+  poleAngles.forEach((angle, poleIndex) => magnetRoot.add(createPoleAssembly(angle, poleIndex)));
 
   const pulseCarrier = new THREE.Group();
   magnetRoot.add(pulseCarrier);
@@ -1729,6 +1752,8 @@ async function startQuadrupoleDemo() {
 
   const fieldLines = new THREE.Group();
   const fieldMat = new THREE.MeshBasicMaterial({ color: 0xff6476, transparent: true, opacity: 0.32 });
+  const fieldArrowMat = new THREE.MeshBasicMaterial({ color: 0xff5267, transparent: true, opacity: 0.72 });
+  const fieldArrowheads = [];
   function addFieldArc(a0, a1, h) {
     const curve = new THREE.CubicBezierCurve3(
       new THREE.Vector3(Math.cos(a0) * 1.2, Math.sin(a0) * 1.2, h),
@@ -1737,10 +1762,20 @@ async function startQuadrupoleDemo() {
       new THREE.Vector3(Math.cos(a1) * 1.2, Math.sin(a1) * 1.2, h)
     );
     fieldLines.add(new THREE.Mesh(new THREE.TubeGeometry(curve, 34, 0.02, 8, false), fieldMat));
+    const arrowhead = new THREE.Mesh(new THREE.ConeGeometry(0.064, 0.16, 12), fieldArrowMat);
+    const arrowPoint = curve.getPoint(0.56);
+    const arrowDirection = curve.getTangent(0.56).normalize();
+    arrowhead.position.copy(arrowPoint);
+    arrowhead.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), arrowDirection);
+    fieldLines.add(arrowhead);
+    fieldArrowheads.push({ curve, arrowhead });
   }
   for (let i = 0; i < 4; i += 1) {
-    const a0 = poleAngles[i];
-    const a1 = poleAngles[(i + 1) % 4];
+    const nextPole = (i + 1) % 4;
+    const northPole = i % 2 === 0 ? i : nextPole;
+    const southPole = i % 2 === 0 ? nextPole : i;
+    const a0 = poleAngles[northPole];
+    const a1 = poleAngles[southPole];
     addFieldArc(a0, a1, -0.34);
     addFieldArc(a0, a1, 0.34);
   }
@@ -1778,6 +1813,68 @@ async function startQuadrupoleDemo() {
     gradient: Number(gradientInput.value),
     rotationSpeed: 0.0028
   };
+
+  const polarityRaycaster = new THREE.Raycaster();
+  const polarityPointer = new THREE.Vector2();
+
+  function hidePolarityTip() {
+    if (!polarityTip) return;
+    polarityTip.dataset.visible = "false";
+    polarityTip.setAttribute("aria-hidden", "true");
+    renderer.domElement.style.cursor = "";
+  }
+
+  function showPolarityTip(event, poleIndex) {
+    if (!polarityTip || !polarityNameEl || !polarityDetailEl || !quadWidget) return;
+    const fieldOff = state.opticsMode && Math.abs(state.gradient) <= 0.5;
+    const positiveNorth = poleIndex % 2 === 0;
+    const isNorth = state.gradient < 0 ? !positiveNorth : positiveNorth;
+    const polarity = fieldOff ? "off" : isNorth ? "north" : "south";
+
+    polarityTip.dataset.polarity = polarity;
+    polarityTip.dataset.visible = "true";
+    polarityTip.setAttribute("aria-hidden", "false");
+    polarityNameEl.textContent = fieldOff ? "FIELD OFF" : isNorth ? "NORTH POLE" : "SOUTH POLE";
+    polarityDetailEl.textContent = fieldOff ? "No active polarity" : isNorth ? "Field lines emerge" : "Field lines return";
+
+    const widgetRect = quadWidget.getBoundingClientRect();
+    const left = Math.max(8, Math.min(event.clientX - widgetRect.left, widgetRect.width - 168));
+    const top = Math.max(8, Math.min(event.clientY - widgetRect.top, widgetRect.height - 58));
+    polarityTip.style.left = `${left}px`;
+    polarityTip.style.top = `${top}px`;
+    renderer.domElement.style.cursor = "help";
+  }
+
+  function updatePolarityHover(event) {
+    if (dragging || (event.pointerType && event.pointerType !== "mouse")) {
+      hidePolarityTip();
+      return;
+    }
+    const rect = renderer.domElement.getBoundingClientRect();
+    polarityPointer.set(
+      ((event.clientX - rect.left) / rect.width) * 2 - 1,
+      -((event.clientY - rect.top) / rect.height) * 2 + 1
+    );
+    polarityRaycaster.setFromCamera(polarityPointer, camera);
+    const hit = polarityRaycaster.intersectObjects(polarityTargets, false)[0];
+    if (!hit) {
+      hidePolarityTip();
+      return;
+    }
+    showPolarityTip(event, hit.object.userData.quadPoleIndex);
+  }
+
+  renderer.domElement.addEventListener("pointermove", updatePolarityHover);
+  renderer.domElement.addEventListener("pointerleave", hidePolarityTip);
+  renderer.domElement.addEventListener("pointerdown", hidePolarityTip);
+
+  function updateFieldArrowDirections() {
+    const directionSign = state.gradient < 0 ? -1 : 1;
+    fieldArrowheads.forEach(({ curve, arrowhead }) => {
+      const arrowDirection = curve.getTangent(0.56).normalize().multiplyScalar(directionSign);
+      arrowhead.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), arrowDirection);
+    });
+  }
 
   function updateForceArrows() {
     const fieldMagnitude = Math.abs(state.gradient);
@@ -1817,6 +1914,10 @@ async function startQuadrupoleDemo() {
     fieldMat.opacity = state.opticsMode
       ? 0.08 + 0.34 * Math.abs(state.gradient) / 100
       : 0.32;
+    fieldArrowMat.opacity = state.opticsMode
+      ? 0.28 + 0.48 * Math.abs(state.gradient) / 100
+      : 0.72;
+    updateFieldArrowDirections();
   }
 
   function syncMode() {
